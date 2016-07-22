@@ -123,7 +123,7 @@ function mypopup(tramite){
 
 <table class="pucpTablaSubTitulo" width="100%">
 <tr >
-<td ><font class="pucpSubTitulo">Declaración Jurada Familiar&nbsp;</font></td>
+<td ><font class="pucpSubTitulo">Declaraciï¿½n Jurada Familiar&nbsp;</font></td>
 </tr>
 </table>
 <br>
@@ -153,7 +153,7 @@ function mypopup(tramite){
 	<!-- <p>Para descargar el Manual, haga click <a href="javascript:mypopup('<%=declaracionJuradaData.getTramite().trim()%>');">Aqui<br><img src="jsp/imagen_adobe.gif" border="0"></a> --> 
 	   	 <p>Para descargar el Manual, haga click <a href="javascript:descargarManualDeInstrucciones();">Aqui<br><img src="jsp/imagen_adobe.gif" border="0"></a> 
 	   <br>
-	  <br><b><input type="checkbox" name="boletin" value="OFF" unchecked onclick="habilitaDeshabilita(this.form)" >Acepto haber leído y entendido el manual de instrucciones de la DJF </b>
+	  <br><b><input type="checkbox" name="boletin" value="OFF" unchecked onclick="habilitaDeshabilita(this.form)" >Acepto haber leï¿½do y entendido el manual de instrucciones de la DJF </b>
   </TD></TR>
     </TABLE>
 
@@ -165,7 +165,7 @@ function mypopup(tramite){
 
 
 </form>
-<%-- Incluimos el pie que es un html estático --%>
+<%-- Incluimos el pie que es un html estï¿½tico --%>
 <jsp:include page="/pucp/servsoci/sswdjf/jsp/pucppie.jsp" flush="true"/>
 <%-- Fin del pie --%>
 </BODY>
