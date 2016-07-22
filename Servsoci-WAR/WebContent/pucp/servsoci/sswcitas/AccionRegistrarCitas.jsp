@@ -6,17 +6,21 @@
   --%>
 <%@ page contentType="text/html;charset=ISO-8859-1"  %>
 <%@ page errorPage="/pucp/lib/jsp/PucpErrorPage.jsp" %>
-<%@ page import="pucp.lib.PucpSession" %>
 <%@ page import="pucp.lib.util.PucpLenguaje" %>
+<%@ page import="pucp.lib.PucpAplicacion" %>
+<%@ page import="pucp.lib.PucpConstant" %>
+<%@ page import="pucp.lib.PucpSession" %>
 
+<% 
+  PucpSession.getVerificar(application, request, response, 1);
+  PucpAplicacion.getVerificarServicio(application, request, response, 1, "sswdjf", PucpConstant.SER_INGRESAR);
+%>
 
 <HTML>
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
 <META NAME="GENERATOR" CONTENT="Oracle JDeveloper">
 
-<%-- JPB MAR 2016 - Cambios Browser  --%>
-<%-- Nueva cara del Campus Virtual   --%>
 <link href="/pucp/lib/framework/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 <link href="/pucp/lib/jsp/pucp.bootstrap.compatibilidad.css" rel="stylesheet">
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../lib/jsp/pucp.css">
@@ -26,14 +30,51 @@
 <script type=text/javascript language="JavaScript1.2" src="jsp/sswdjf.js"> </script>
 <script type=text/javascript language="JavaScript1.2" src="../../lib/jsp/pucp.js"> </script>
 
-<%-- JPB MAR 2016 - Cambios Browser  --%>
-<%-- Nueva cara del Campus Virtual   --%>
 <script type="text/javascript" src="/pucp/lib/js/jquery/jquery-1.9.1.min.js"></script>
 <script src="/pucp/lib/framework/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 </head> 
 <BODY bgcolor="#ffffff" topmargin="0" marginwidth="0" marginheight="0">
+
 <jsp:useBean id="comboCiclo" scope="request" class="java.lang.Object" />
+
+
+
+<form action="<%= response.encodeURL("sswdjf") %>" method="post" name="formDeclaracionJurada">
+
+<input type="hidden" name="accion" value="RegistrarCitas"> 
+<input type="hidden" name="anio" > 
+<input type="hidden" name="ciclo" >
+<input type="hidden" name="tramite" >
+
+<input type="hidden" name="session" value="<%=PucpSession.getId(application,request,response)%>" >
+
+
+
+
+
+
+
+
+<table align="right" border-width="0" width="20%" >
+<tr>
+   <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="javascript:registrarCitas()" onMouseOver="self.status = ''; return true">Registrar citas</a></td>
+</tr>
+</table> 
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <br>
 <table class = "pucpTablaTitulo">
@@ -50,11 +91,8 @@
 <tr><td><font class = "pucpSubTitulo">Criterios:</font></td> </tr>
 </table>
 
-<form  name="formcriterios" action="cewpanel" method="post">
-<input type="hidden" name="accion" value="RegistrarCitas"> 
-<input type="hidden" name="anio" > 
-<input type="hidden" name="ciclo" >
-<input type="hidden" name="tramite" >
+<form  name="formcriterios" action="sswdjf" method="post">
+
 
 
 <%-- Seleccionar Ciclo (anio - numero ciclo)   --%>
@@ -112,7 +150,7 @@
 <table border="0" width="100%">
 <tr><td width="100%" colspan="3" align="center">
 
-<a href=  "javascript:registrar_citas();">
+<a href=  "javascript:registrarCitas();">
 <img src="/pucp/lib/images/b_buscar.gif" class="pucpBoton" alt="">
 </a>
 <a href= "javascript:history.back();" >
