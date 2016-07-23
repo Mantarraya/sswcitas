@@ -16,6 +16,7 @@
   PucpAplicacion.getVerificarServicio(application, request, response, 1, "sswdjf", PucpConstant.SER_INGRESAR);
 %>
 
+
 <HTML>
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
@@ -37,6 +38,7 @@
 <BODY bgcolor="#ffffff" topmargin="0" marginwidth="0" marginheight="0">
 
 <jsp:useBean id="comboCiclo" scope="request" class="java.lang.Object" />
+<jsp:useBean id="comboTramite" scope="request" class="java.lang.Object" />
 
 
 
@@ -54,11 +56,11 @@
 
 
 
-
+<% String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=RegistrarCitas";  %>
 
 <table align="right" border-width="0" width="20%" >
 <tr>
-   <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="javascript:registrarCitas()" onMouseOver="self.status = ''; return true">Registrar citas</a></td>
+   <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="<%=response.encodeURL(urlCitas)%>" onMouseOver="self.status = ''; return true">Registrar citas</a></td>
 </tr>
 </table> 
 <br>
@@ -80,7 +82,7 @@
 <table class = "pucpTablaTitulo">
 <tr><td>
 <font class="pucpTitulo" >
-     Registar citas a los nuevos alumnos ingresantes:
+     Registrar citas a los nuevos alumnos ingresantes:
 </font></td>
 <td></td>
 </tr>
@@ -92,7 +94,6 @@
 </table>
 
 <form  name="formcriterios" action="sswdjf" method="post">
-
 
 
 <%-- Seleccionar Ciclo (anio - numero ciclo)   --%>
@@ -115,35 +116,40 @@
       %>
       <td width="50%" class="pucpCampo" width="70%"><%= PucpLenguaje.toHTML(comboCiclo,"comboCiclo","class='PucpCampo'",Seleccionado)%>&nbsp;</td>
     </tr>
-
-
-</table>
-<br>
+    
+    
 
 <%-- Seleccionar Tramite --%>
 
-<table width="100%">
-    <tr>
-      <td width="25%" class="pucpEtiqOblig" width="20%">Tramite</td>      
-      <td width="50%" class="pucpCampo" width="70%"><%= PucpLenguaje.toHTML(comboCiclo,"comboCiclo","class='PucpCampo'",Seleccionado)%>&nbsp;</td>
-    </tr>
 
-</table>
-<br>
+
+	<tr>
+      <td width="25%" class="pucpEtiqOblig" width="20%">Tramite</td>
+      <%
+      Seleccionado="";
+      int TipoTramite = 0;
+      String pDescripcion = request.getParameter("descripcion");
+      //si la pagina se esta recargando, se hace que el combo especialidad conserve su seleccion
+      if ( (pDescripcion!=null) && (!pDescripcion.equals("")) ){
+         TipoTramite = 1;
+         pDescripcion=pDescripcion.trim();
+	     Seleccionado=pDescripcion;
+       }
+      %>
+      <td width="50%" class="pucpCampo" width="70%"><%= PucpLenguaje.toHTML(comboTramite,"comboTramite","class='PucpCampo'",Seleccionado)%>&nbsp;</td>
+    </tr>
+        
 
 <%-- Adjuntar Excel - Examinar --%>
 
-<table>
+
       <tr>
-      <td><font class="pucpEtiqOblig">Archivo:</font></td>
+      <td><font class="pucpEtiqOblig">Archivo</font></td>
     	<td><input type="file" name="file" size="60">
 		</td>
-	 </tr>		
+	 </tr>	
+	 	
 </table> 
-
-
-
-
 
 
 

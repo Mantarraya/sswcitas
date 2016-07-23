@@ -28,6 +28,8 @@ public class AccionRegistrarCitas extends PucpAccion
     Connection connectionServSoci = this.getConnection("PREPROD", "SERVSOCI", "AUX_ILIO_");
     try
     {
+    	
+      /* Combo Ciclos */ 	
       PucpListaVector comboCiclo = new PucpListaVector();
 
       CitasAlumnosBeanFunction BusquedaCiclos = new CitasAlumnosBeanFunction();
@@ -37,18 +39,27 @@ public class AccionRegistrarCitas extends PucpAccion
       comboCiclo.insertar("", "Seleccione un ciclo", 0);
       request.setAttribute("comboCiclo", comboCiclo.toArrayString());
 
+      
+      /* Combo Tramites */
+      
       PucpListaVector comboTramite = new PucpListaVector();
 
       CitasAlumnosBeanFunction BusquedaTramites = new CitasAlumnosBeanFunction();
       BusquedaTramites.setCon(connectionServSoci);
-
-      comboTramite = BusquedaCiclos.LlenaComboTramites();
+     
+      comboTramite = BusquedaTramites.LlenaComboTramites();
       comboTramite.insertar("", "Seleccione un tramite", 0);
       request.setAttribute("comboTramite", comboTramite.toArrayString());
+      
+      
+      /*
+      
 
       String cicloAno = request.getParameter("comboCiclo").substring(0, 3);
       String ciclo = request.getParameter("comboCiclo").substring(5, 5);
       String tramite = request.getParameter("comboTramite");
+      
+      
       
       String nombreArchivo = ((PucpMultipartRequest) request).getFileFullName("file");
       String extension = ((PucpMultipartRequest) request).getFileExtension("file");
@@ -66,6 +77,8 @@ public class AccionRegistrarCitas extends PucpAccion
       if (!cargoCitasServSoci) {
         throw new PucpException("Ocurrió un error al cargar el archivo excel");
       }
+      
+      */
 
       pucpForward(request, response, "/pucp/servsoci/sswcitas/jsp/AccionRegistrarCitas.jsp");
     }

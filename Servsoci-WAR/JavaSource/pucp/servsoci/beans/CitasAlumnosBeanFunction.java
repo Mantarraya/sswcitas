@@ -26,7 +26,7 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 			
 			PucpListaVector comboCiclo = new PucpListaVector();
 			comboCiclo.setCon(this.getCon()); /* Conexion */			
-			comboCiclo.poblar("SELECT A.CICLOANO, A.CICLO FROM SERVSOCI.CICLOSERVSOCI A ORDER BY 1 DESC");			
+			comboCiclo.poblar("SELECT DISTINCT A.CICLOANO||'-'||A.CICLO, A.CICLOANO||'-'||A.CICLO FROM SERVSOCI.CICLOSERVSOCI A ORDER BY 1 DESC");			
 			return comboCiclo;
 		}catch (Exception exc) {
 			throw exc;
@@ -44,7 +44,7 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 			
 			PucpListaVector comboTramite = new PucpListaVector();
 			comboTramite.setCon(this.getCon()); /* Conexion */
-			comboTramite.poblar("SELECT A.DESCRIPCION FROM SERVSOCI.TRAMITE A ORDER BY DESCRIPCION");			
+			comboTramite.poblar("SELECT DISTINCT A.TRAMITE, A.DESCRIPCION FROM SERVSOCI.TRAMITE A ORDER BY 2");			
 			return comboTramite;
 		}catch (Exception exc) {
 			throw exc;
