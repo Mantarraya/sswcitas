@@ -16,14 +16,9 @@ import pucp.servsoci.beans.CitasAlumnosBeanFunction;
 
 public class AccionRegistrarCitas extends PucpAccion
 {
-  public void ejecutar(ServletContext sc, 
-		  HttpServletRequest request, 
-		  HttpServletResponse response)
-    throws  PucpException,
-    		IOException,
-    		ServletException, 
-    		Exception
-  {
+  public void ejecutar(ServletContext sc, HttpServletRequest request, HttpServletResponse response)
+  throws  PucpException, IOException, ServletException, Exception  {
+	  
     super.ejecutar(sc, request, response);
     Connection connectionServSoci = this.getConnection("PREPROD", "SERVSOCI", "AUX_ILIO_");
     try
