@@ -4,6 +4,9 @@ package pucp.servsoci.beans;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -54,7 +57,7 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 
 
 
-	public boolean cargarCitas(InputStream contenido, String cicloAno, String ciclo, String tramite) throws PucpException {
+	public boolean cargarCitas(InputStream contenido, String cicloAno, String ciclo, String tramite) throws PucpException, SQLException {
 		
 		HSSFWorkbook wbook = null;
         int fila = 0, columna = 0;
@@ -66,6 +69,20 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
         String codigo = "";
         String nombre = "";
         String lugar = "";
+        
+        PreparedStatement pstmt = null;
+        ResultSet rset = null;
+        
+        /* Obtenemos la abreviacion del tramite */
+        
+        String tramiteAbrev = "";
+	    String sSql = "select A.tramite from SERVSOCI.TRAMITE A where trim(A.descripcion) =  trim(tramite)" ;
+	    pstmt = con.prepareStatement(sSql);
+	    rset= pstmt.executeQuery();
+        
+        
+        
+        
         
         try {
         	
@@ -143,15 +160,15 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 	        		
 	        		/* Insertar Tabla Temporal Citas */	        		
 
-	        		PreparedStatement pstmt = null;
-	        		ResultSet rset = null;
+	        		pstmt = null;
+	        		rset = null;
 	        		   
 	        		String dml = "";
 	        		   
 	        		dml = "INSERT INTO SERVSOCI.CITASXASIGNAR" +
 	        			  "(FECHA, HORA, SECUENCIA, CICLOANO, CICLO, TRAMITE, INDICAASIGNACION, CODIGOASISTENTA, NOMBREASISTENTA, LUGAR) " + 
 	       			      " VALUES " +
-	       			      "(?, ?, SEC_CITASXASIGNAR.NEXTVAL, cicloAno, ciclo, tramite, '0', ?, ?, ?)";
+	       			      "(?, ?, SEC_CITASXASIGNAR.NEXTVAL, cicloAno, ciclo, tramiteAbrev, '0', ?, ?, ?)";
 
 	       			pstmt = con.prepareStatement(dml);
 	       			
@@ -215,6 +232,47 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 	}
 	
 	
+	
+	
+	public boolean foobar(HttpServletRequest request) throws Exception, SQLException {
+
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		   
+		   String dml = "";
+				   
+		   String sAnio = request.getParameter("anio");
+		   String sCiclo = request.getParameter("ciclo");
+		   String sTramite = request.getParameter("tramite");
+		
+		try{
+			
+    		rset = null;
+    		       		  
+    		dml = "INSERT INTO SERVSOCI.CITASXASIGNAR VALUES (SYSDATE, SYSDATE, SERVSOCI.SEC_CITASXASIGNAR.nextval, ?, ?, ?,  '20162016', 'nombreA', 'nombreS', '1')";
+    		
+    		pstmt = super.con.prepareStatement(dml);
+   			
+    		
+    		
+			pstmt.setString(1, sAnio);			
+			pstmt.setString(2, sCiclo);			
+			pstmt.setString(3, sTramite);
+    		pstmt.executeUpdate();
+			
+			return true;
+			   			
+		} catch (Exception e) {
+			super.con.rollback();
+			throw e;
+		} finally {
+			if (rset!= null) rset.close();
+			if (pstmt!= null) pstmt.close();				 	
+		}
+
+		
+	}
 	
 	
 	
