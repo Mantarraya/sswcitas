@@ -42,14 +42,61 @@
 
 
 
-<form action="<%= response.encodeURL("sswdjf") %>" method="post" name="formDeclaracionJurada">
 
-<input type="hidden" name="accion" value="RegistrarCitas"> 
+<script type="text/javascript" language="JavaScript1.2" src="/pucp/general/gewpealu/jsp/enter.js"> </script>
+<script type="text/javascript" language="JavaScript1.2" src="/pucp/servsoci/sswcitas/jsp/sswcitas.js"> </script>
+<script type="text/javascript" language="JavaScript1.2" src="/pucp/lib/jsp/pucp.js"> </script>
+<SCRIPT type="text/javascript" language="JavaScript1.2">
+function VerificaCriterios()
+{
+    var form = document.formcriterios;
+    return true;   
+}
+   
+function contieneApostrofes(dato)
+{
+	if (verificaApostrofe(dato))
+		alert("La búsqueda no debe tener comillas simples o dobles.");
+}
+   
+function verificaApostrofe(dato)
+{
+	val = dato.value;
+	var err = 0;
+	var cadena = "";
+    for(i=0;i<val.length;i++)
+    {
+    	if ((val.charAt(i)== "'") || (val.charAt(i)== "´") || (val.charAt(i)== "\""))
+        {
+        	cadena = val.substr(0, i);
+			cadena = cadena + val.substr(i+1);
+			i--;
+			val = cadena;
+        	err++;
+        }
+     }
+	 if (err > 0)
+	 {
+		dato.value = val;
+		return true;
+	 }
+	return false;
+}
+
+</SCRIPT>
+
+<form  name="formcriterios" action="sswcitas" method="post">
+<input type="hidden" name="accion" value="InsertarDatosCitas"> 
 <input type="hidden" name="anio" > 
 <input type="hidden" name="ciclo" >
 <input type="hidden" name="tramite" >
 
-<input type="hidden" name="session" value="<%=PucpSession.getId(application,request,response)%>" >
+
+
+
+
+
+
 
 
 
@@ -73,16 +120,11 @@
 
 
 
-
-
-
-
-
 <br>
 <table class = "pucpTablaTitulo">
 <tr><td>
 <font class="pucpTitulo" >
-     Registrar citas a los nuevos alumnos ingresantes:
+     Registrar citas a los nuevos alumnos ingresantes: 
 </font></td>
 <td></td>
 </tr>
@@ -92,8 +134,6 @@
 <table class = "pucpTablaSubTitulo"  width="100%">
 <tr><td><font class = "pucpSubTitulo">Criterios:</font></td> </tr>
 </table>
-
-<form  name="formcriterios" action="sswdjf" method="post">
 
 
 <%-- Seleccionar Ciclo (anio - numero ciclo)   --%>
@@ -156,8 +196,10 @@
 <table border="0" width="100%">
 <tr><td width="100%" colspan="3" align="center">
 
-<a href=  "javascript:registrarCitas();">
-<img src="/pucp/lib/images/b_buscar.gif" class="pucpBoton" alt="">
+<% String urlRegistrar = "/pucp/servsoci/sswcitas/sswcitas?accion=InsertarDatosCitas";  %>
+
+<a href=  "javascript:boton_aceptar_aluPucp();" >
+<img src="/pucp/lib/images/b_registrar.gif" class="pucpBoton" alt="">
 </a>
 <a href= "javascript:history.back();" >
 <img src="/pucp/lib/images/b_regresar.gif" class="pucpBoton" alt="">
