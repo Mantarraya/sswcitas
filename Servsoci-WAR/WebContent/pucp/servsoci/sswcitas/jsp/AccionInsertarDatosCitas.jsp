@@ -22,6 +22,14 @@
 <link REL ="stylesheet" TYPE="text/css" HREF="/pucp/lib/jsp/pucp.css">
 <link REL ="stylesheet" TYPE="text/css" HREF="/pucp/ambientes/jsp/ambientes.css" >  
 
+
+
+<jsp:useBean id="comboCiclo" scope="request" class="java.lang.Object" />
+<jsp:useBean id="comboTramite" scope="request" class="java.lang.Object" />
+<jsp:useBean id="anio" scope="request" class="java.lang.String" />
+<jsp:useBean id="ciclo" scope="request" class="java.lang.String" />
+<jsp:useBean id="tramite" scope="request" class="java.lang.String" />
+
 <HTML>
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
@@ -51,34 +59,33 @@ function VerificaCriterios()
    
 function contieneApostrofes(dato)
 {
-	if (verificaApostrofe(dato))
-		alert("La búsqueda no debe tener comillas simples o dobles.");
+  if (verificaApostrofe(dato))
+    alert("La búsqueda no debe tener comillas simples o dobles.");
 }
    
 function verificaApostrofe(dato)
 {
-	val = dato.value;
-	var err = 0;
-	var cadena = "";
+  val = dato.value;
+  var err = 0;
+  var cadena = "";
     for(i=0;i<val.length;i++)
     {
-    	if ((val.charAt(i)== "'") || (val.charAt(i)== "´") || (val.charAt(i)== "\""))
+      if ((val.charAt(i)== "'") || (val.charAt(i)== "´") || (val.charAt(i)== "\""))
         {
-        	cadena = val.substr(0, i);
-			cadena = cadena + val.substr(i+1);
-			i--;
-			val = cadena;
-        	err++;
+          cadena = val.substr(0, i);
+      cadena = cadena + val.substr(i+1);
+      i--;
+      val = cadena;
+          err++;
         }
      }
-	 if (err > 0)
-	 {
-		dato.value = val;
-		return true;
-	 }
-	return false;
+   if (err > 0)
+   {
+    dato.value = val;
+    return true;
+   }
+  return false;
 }
-
 </SCRIPT>
 
 
@@ -86,31 +93,26 @@ function verificaApostrofe(dato)
 </head> 
 
 <body onload="">   
-<jsp:useBean id="comboCiclo" scope="request" class="java.lang.Object" />
-<jsp:useBean id="comboTramite" scope="request" class="java.lang.Object" />
 
-<form  name="formcriterios" action="sswcitas" method="post">
+
+
+
+<form method="post" name="formcriterios" id="formcriterios" action="sswcitas" enctype="multipart/form-data"  >
+
 <input type="hidden" name="accion" value="InsertarDatosCitas"> 
-<input type="hidden" name="anio" value="<%=request.getParameter("anio") %>"> 
-<input type="hidden" name="ciclo" value="<%=request.getParameter("ciclo") %>">
-<input type="hidden" name="tramite" value="<%=request.getParameter("tramite") %>">
+<input type="hidden" name="anio" value="<%=anio%>">
+<input type="hidden" name="ciclo" value="<%=ciclo%>">
+<input type="hidden" name="tramite" value="<%=tramite%>">
 
 
-
-<%	
-String nAnio = request.getParameter("anio");
-String sCiclo = request.getParameter("ciclo");
-String nTramite = request.getParameter("tramite");
-
- %>
 
 
 
 <table width="98%">
   <tr>
-	    <td>
+      <td>
 
-  <font class="pucpEtiq"><strong>InsertarDatosCitas <%=nAnio %> - <%=sCiclo %> - <%=nTramite %></strong><br>
+  <font class="pucpEtiq"><strong>InsertarDatosCitas Anio = <%=anio %> - Ciclo = <%=ciclo %> - Tramite = <%=tramite %></strong><br>
   La información ofrecida puede ser utilizada para comunicaciones individuales y con fines académicos. 
   La Pontificia Universidad Católica del Perú NO AUTORIZA su uso para confeccionar bases de datos o generar envíos masivos (SPAM).
   </font>
@@ -128,5 +130,3 @@ String nTramite = request.getParameter("tramite");
 </BODY>
 
 </HTML>
-
-
