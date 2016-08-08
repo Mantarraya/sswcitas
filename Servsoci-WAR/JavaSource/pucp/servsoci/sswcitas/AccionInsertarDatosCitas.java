@@ -1,57 +1,61 @@
 package pucp.servsoci.sswcitas;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
-import java.util.Vector;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ibm.ws.sdo.mediator.jdbc.queryengine.sqlquerytree.WhereClause;
-import com.tivoli.pd.jasn1.boolean32;
 
 import pucp.lib.PucpAccion;
-import pucp.lib.PucpSession;
-import pucp.lib.PucpUsuarioVariables;
 
-import pucp.lib.componentes.PucpListaVector;
 import pucp.lib.exception.PucpException;
 import pucp.lib.util.PucpMultipartRequest;
+import pucp.servsoci.beans.CitasAlumnosBeanData;
 import pucp.servsoci.beans.CitasAlumnosBeanFunction;
 
 public class AccionInsertarDatosCitas extends PucpAccion{
-	public void ejecutar(ServletContext sc, HttpServletRequest request, HttpServletResponse response) 
-	throws  PucpException, IOException, ServletException, Exception  {
+	public void ejecutar(ServletContext sc, HttpServletRequest request, HttpServletResponse response, PucpMultipartRequest multiRequest) 
+	throws  Exception  {
 	
 		super.ejecutar(sc, request, response);
 	    Connection connectionServSoci = this.getConnection("DESA", "SERVSOCI", "AUX_ILIO_");
 	    
+	    try {	    		    
+	    	
+	    	CitasAlumnosBeanFunction archivoExcel= new CitasAlumnosBeanFunction();
+			archivoExcel.setCon(connectionServSoci);
+			
+			CitasAlumnosBeanData archivo = archivoExcel.obtenerArchivo(multiRequest);
+			
+			String anio = multiRequest.getParameter("anio");
+	    	String ciclo = multiRequest.getParameter("ciclo");
+	    	String tramite = multiRequest.getParameter("tramite");
+	    	
+	    	request.setAttribute("anio",multiRequest.getParameter("anio"));
+	    	request.setAttribute("ciclo",multiRequest.getParameter("ciclo"));
+	    	request.setAttribute("tramite",multiRequest.getParameter("tramite"));
 	    
+	    	//String nombreArchivo  = request.getFileFullName("file");
+			//String extension = ((PucpMultipartRequest) request).getFileExtension("file");
+			//InputStream contenido = ((PucpMultipartRequest) request).getFileContent("file");
 	    
-	    try {	    	
-	    	
-	    	
-	    	String anio = request.getParameter("anio");
-	    	String ciclo = request.getParameter("ciclo");
-	    	String tramite = request.getParameter("tramite");
-	    	
 	    	CitasAlumnosBeanFunction CitasExcel = new CitasAlumnosBeanFunction();
 	    	CitasExcel.setCon(connectionServSoci);
 	    	
+	    	
 	    	/*
 	    	if (1==1){
-	    		throw new PucpException("Anio = " + anio + " Ciclo = " + ciclo + " Tramite = " + tramite);
+	    		throw new PucpException("Anio = " + anio + " Ciclo = " + ciclo + " Tramite = " + tramite + 
+	    				                "Nombre de archivo = ");
 	    	}
 	    	*/
 	    	
 	    	
 	    	boolean cargoCita;
-	    	cargoCita = CitasExcel.foobar(request); 
-	    		
-	    		
+	    	cargoCita = CitasExcel.foobar(multiRequest); 
 	    	
 	    /*	
 			String nombreArchivo  = ((PucpMultipartRequest) request).getFileFullName("file");    
@@ -68,13 +72,7 @@ public class AccionInsertarDatosCitas extends PucpAccion{
 		      }
 
 		      CitasAlumnosBeanFunction CitasExcel = new CitasAlumnosBeanFunction();
-
-		      
-		      
-		      
-		      
-		      
-		      
+  
 		      boolean cargoCitasServSoci = CitasExcel.cargarCitas(contenido, anio, ciclo, tramite);
 		      
 		      if (!cargoCitasServSoci) {
@@ -84,13 +82,8 @@ public class AccionInsertarDatosCitas extends PucpAccion{
    				
 		      */
 	    	
-	    	
-	    	
-	    	
-	    	
-	        pucpForward(request, response, "/pucp/servsoci/sswcitas/jsp/AccionInsertarDatosCitas.jsp");
-	        
-	    	
+ 	        pucpForward(request, response, "/pucp/servsoci/sswcitas/jsp/AccionInsertarDatosCitas.jsp");
+	        	    
 		} 
 	    catch (Exception exc)
 	    {

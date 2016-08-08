@@ -16,6 +16,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import pucp.lib.PucpBeanFunction;
 import pucp.lib.componentes.PucpListaVector;
 import pucp.lib.exception.PucpException;
+import pucp.lib.util.PucpMultipartRequest;
+
 
 
 
@@ -234,7 +236,7 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 	
 	
 	
-	public boolean foobar(HttpServletRequest request) throws Exception, SQLException {
+	public boolean foobar(PucpMultipartRequest multiRequest) throws Exception, SQLException {
 
 
 		PreparedStatement pstmt = null;
@@ -242,9 +244,9 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 		   
 		   String dml = "";
 				   
-		   String sAnio = request.getParameter("anio");
-		   String sCiclo = request.getParameter("ciclo");
-		   String sTramite = request.getParameter("tramite");
+		   String sAnio = multiRequest.getParameter("anio");
+		   String sCiclo = multiRequest.getParameter("ciclo");
+		   String sTramite = multiRequest.getParameter("tramite");
 		
 		try{
 			
@@ -276,7 +278,34 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 	
 	
 	
-
 	
+	/* 04/08/2016 */
+	
+	public CitasAlumnosBeanData obtenerArchivo(PucpMultipartRequest multiRequest)
+		throws Exception {
+		
+		CitasAlumnosBeanData archivoData = null;
+		
+		try{
+			
+			InputStream contenidoArch = null;										
+			String extensionArch="";
+			long tamanioArch = 0;
+			
+			contenidoArch = multiRequest.getFileContent("archivo");
+			extensionArch = multiRequest.getFileExtension("archivo");
+			tamanioArch = multiRequest.getFileLength("archivo");		
+			
+			
+		}
+		catch (Exception exc) {
+			con.rollback();
+			throw exc;
+		} 
+		return archivoData;
+		
+	}
+	
+
 
 }

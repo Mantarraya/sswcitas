@@ -85,22 +85,11 @@ function verificaApostrofe(dato)
 
 </SCRIPT>
 
-<form  name="formcriterios" action="sswcitas" method="post">
+<form method="post" name="formcriterios" id="formcriterios" action="sswcitas" enctype="multipart/form-data"  >
 <input type="hidden" name="accion" value="InsertarDatosCitas"> 
 <input type="hidden" name="anio" > 
 <input type="hidden" name="ciclo" >
 <input type="hidden" name="tramite" >
-
-
-
-
-
-
-
-
-
-
-
 
 
 <% String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=RegistrarCitas";  %>
@@ -111,14 +100,6 @@ function verificaApostrofe(dato)
 </tr>
 </table> 
 <br>
-
-
-
-
-
-
-
-
 
 <br>
 <table class = "pucpTablaTitulo">
@@ -190,6 +171,10 @@ function verificaApostrofe(dato)
 	 </tr>	
 	 	
 </table> 
+
+
+
+
 
 
 

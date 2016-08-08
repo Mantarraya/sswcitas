@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import pucp.lib.PucpAccion;
+import pucp.lib.PucpSession;
 
 import pucp.lib.componentes.PucpListaVector;
 import pucp.lib.exception.PucpException;
@@ -20,9 +21,11 @@ public class AccionRegistrarCitas extends PucpAccion
   throws  PucpException, IOException, ServletException, Exception  {
 	  
     super.ejecutar(sc, request, response);
-    Connection connectionServSoci = this.getConnection("PREPROD", "SERVSOCI", "AUX_ILIO_");
-    try
+    Connection connectionServSoci = this.getConnection("DESA", "SERVSOCI", "AUX_ILIO_");
+    try                                                  
     {
+    	
+      PucpSession.getVerificar(sc, request, response, 1);
     	
       /* Combo Ciclos */ 	
       PucpListaVector comboCiclo = new PucpListaVector();
@@ -44,12 +47,11 @@ public class AccionRegistrarCitas extends PucpAccion
      
       comboTramite = BusquedaTramites.LlenaComboTramites();
       comboTramite.insertar("", "Seleccione un tramite", 0);
-      request.setAttribute("comboTramite", comboTramite.toArrayString());
+      request.setAttribute("comboTramite", comboTramite.toArrayString());     
       
       
       /*
       
-
       String cicloAno = request.getParameter("comboCiclo").substring(0, 3);
       String ciclo = request.getParameter("comboCiclo").substring(5, 5);
       String tramite = request.getParameter("comboTramite");
@@ -75,7 +77,9 @@ public class AccionRegistrarCitas extends PucpAccion
       
       */
 
-      pucpForward(request, response, "/pucp/servsoci/sswcitas/jsp/AccionRegistrarCitas.jsp");
+      pucpForward(request, response, "/pucp/servsoci/sswcitas/jsp/AccionRegistrarCitas.jsp");      
+      
+      
     }
     catch (Exception exc)
     {

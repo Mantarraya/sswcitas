@@ -1,10 +1,24 @@
 package pucp.servsoci.beans;
 
+import java.io.InputStream;
+
 import pucp.lib.PucpBeanData;
 
 
+public class CitasAlumnosBeanData extends PucpBeanData {	
+	
+	/* Archivo */
+	
+	private InputStream archivo=null;
+	
+	public void setArchivo(InputStream archivo) {
+		this.archivo = archivo;
+	}
 
-public class CitasAlumnosBeanData extends PucpBeanData {		
+	public InputStream getArchivo() {
+		return archivo;
+	}
+	
 	
 	/* Fecha */
 	
@@ -170,11 +184,6 @@ public class CitasAlumnosBeanData extends PucpBeanData {
 	public String getLugar() {
 		return lugar;
 	}
-
-
-
-
-
 
 	
 }

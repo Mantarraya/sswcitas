@@ -19,6 +19,7 @@ public final class Sswcitas extends PucpHttpServlet
 	    /* Juan Tomairo - Julio 2016 */
 	        
 	    this.acciones.put("RegistrarCitas", new AccionRegistrarCitas());
+	    this.acciones.put("InsertarDatosCitas", new AccionInsertarDatosCitas());
 	        
 	  }  
 	}
