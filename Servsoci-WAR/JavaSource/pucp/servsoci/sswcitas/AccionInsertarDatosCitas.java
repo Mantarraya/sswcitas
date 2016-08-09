@@ -1,7 +1,9 @@
 package pucp.servsoci.sswcitas;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -18,7 +20,7 @@ import pucp.servsoci.beans.CitasAlumnosBeanFunction;
 
 public class AccionInsertarDatosCitas extends PucpAccion{
 	public void ejecutar(ServletContext sc, HttpServletRequest request, HttpServletResponse response, PucpMultipartRequest multiRequest) 
-	throws  Exception  {
+	throws  Exception, SQLException  {
 	
 		super.ejecutar(sc, request, response);
 	    Connection connectionServSoci = this.getConnection("DESA", "SERVSOCI", "AUX_ILIO_");
@@ -37,25 +39,29 @@ public class AccionInsertarDatosCitas extends PucpAccion{
 	    	request.setAttribute("anio",multiRequest.getParameter("anio"));
 	    	request.setAttribute("ciclo",multiRequest.getParameter("ciclo"));
 	    	request.setAttribute("tramite",multiRequest.getParameter("tramite"));
-	    
-	    	//String nombreArchivo  = request.getFileFullName("file");
-			//String extension = ((PucpMultipartRequest) request).getFileExtension("file");
-			//InputStream contenido = ((PucpMultipartRequest) request).getFileContent("file");
+	    	
+	    	String nombreArchivo  = multiRequest.getFileFullName("file");
+			String extension = multiRequest.getFileExtension("file");
+			InputStream contenido = multiRequest.getFileContent("file");
 	    
 	    	CitasAlumnosBeanFunction CitasExcel = new CitasAlumnosBeanFunction();
 	    	CitasExcel.setCon(connectionServSoci);
 	    	
-	    	
 	    	/*
+	    	
 	    	if (1==1){
 	    		throw new PucpException("Anio = " + anio + " Ciclo = " + ciclo + " Tramite = " + tramite + 
-	    				                "Nombre de archivo = ");
+	    				                " Nombre de archivo = " + nombreArchivo + " Extension = " + extension);
 	    	}
+	    	
 	    	*/
 	    	
 	    	
 	    	boolean cargoCita;
-	    	cargoCita = CitasExcel.foobar(multiRequest); 
+	    	cargoCita = CitasExcel.cargarCitas(contenido, multiRequest);
+	    	
+	    	
+	    	
 	    	
 	    /*	
 			String nombreArchivo  = ((PucpMultipartRequest) request).getFileFullName("file");    
