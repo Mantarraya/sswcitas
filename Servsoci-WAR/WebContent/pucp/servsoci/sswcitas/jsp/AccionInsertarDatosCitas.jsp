@@ -92,7 +92,10 @@ function verificaApostrofe(dato)
 
 </head> 
 
-<body onload="">   
+<BODY bgcolor="#ffffff" topmargin="0" marginwidth="0" marginheight="0">
+
+
+
 
 
 
@@ -108,20 +111,90 @@ function verificaApostrofe(dato)
 
 
 
+
+   
+</form>
+
+<br><br>
+
+
+
+
+
+</td></tr>
+</table>
+
+
+<%-- Registrar citas a los nuevos alumnos ingresantes --%>
+
+<table align="right" border-width="0" width="20%" class = "pucpTablaTitulo">
+<tr><td>
+<font class="pucpTitulo" >
+     Registrar citas a los nuevos alumnos ingresantes 
+</font></td>
+<td></td>
+</tr>
+</table>
+<br>
+<br>
+
+
+<%-- Estado del registro --%>
+
+<table class = "pucpTablaSubTitulo" width="100%">
+<tr><td><font class = "pucpSubTitulo" > Estado del registro </font></td> </tr>
+</table>
+
+<br>
+
+
+<table width="100%" align="center">
+  <tr>
+      <td>
+<font class="pucpEtiq" align="center">
+<strong>
+<p>
+Registros de citas exitoso
+
+ </p>
+</strong>
+
+</font>
+
+</td>
+</tr>
+
+</table>
+
+
+ <br>
+
+
+<!--  Boton Regresar -->
+<table border="0" width="100%">
+<tr><td width="100%" colspan="3" align="center">
+<a href= "javascript:history.back();" >
+<img src="/pucp/lib/images/b_regresar.gif" class="pucpBoton" alt="">
+</a>
+
+
+<br>
+<br>
+<br>
+
 <table width="98%">
   <tr>
       <td>
 
-  <font class="pucpEtiq"><strong>InsertarDatosCitas Anio = <%=anio %> - Ciclo = <%=ciclo %> - Tramite = <%=tramite %></strong><br>
+  <font class="pucpEtiq"><strong>Importante</strong><br>
   La información ofrecida puede ser utilizada para comunicaciones individuales y con fines académicos. 
   La Pontificia Universidad Católica del Perú NO AUTORIZA su uso para confeccionar bases de datos o generar envíos masivos (SPAM).
   </font>
     </td>
   </tr>
-</table>    
-</form>
+</table> 
 
-<br><br>
+
 
 
 

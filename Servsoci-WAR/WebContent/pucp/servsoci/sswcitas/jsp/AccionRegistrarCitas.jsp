@@ -105,17 +105,19 @@ function verificaApostrofe(dato)
 <table class = "pucpTablaTitulo">
 <tr><td>
 <font class="pucpTitulo" >
-     Registrar citas a los nuevos alumnos ingresantes: 
+     Registrar citas a los nuevos alumnos ingresantes
 </font></td>
 <td></td>
 </tr>
 </table>
 <br>
 
-<table class = "pucpTablaSubTitulo"  width="100%">
-<tr><td><font class = "pucpSubTitulo">Criterios:</font></td> </tr>
-</table>
 
+
+<table class = "pucpTablaSubTitulo" width="100%">
+<tr><td><font class = "pucpSubTitulo" > Criterios </font></td> </tr>
+</table>
+<br>
 
 <%-- Seleccionar Ciclo (anio - numero ciclo)   --%>
 
@@ -137,8 +139,7 @@ function verificaApostrofe(dato)
       %>
       <td width="50%" class="pucpCampo" width="70%"><%= PucpLenguaje.toHTML(comboCiclo,"comboCiclo","class='PucpCampo'",Seleccionado)%>&nbsp;</td>
     </tr>
-    
-    
+        
 
 <%-- Seleccionar Tramite --%>
 
@@ -193,7 +194,7 @@ function verificaApostrofe(dato)
 </td></tr>
 </table>
 <br>
-
+<br>
 <table width="98%">
   <tr>
     <td>
@@ -207,7 +208,7 @@ function verificaApostrofe(dato)
 </table>  
 </form>
 
-<br><br>
+
 
 <jsp:include page="/pucp/lib/jsp/pucppie.jsp" flush="true"/>
     
