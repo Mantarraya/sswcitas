@@ -60,12 +60,12 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 		}
 		
 	}
-
-
-
-	public boolean cargarCitas(InputStream contenido, PucpMultipartRequest multiRequest) throws Exception, SQLException {
+	
+	
+	/* Lectura de archivo excel con extension .xlsx */
+	public boolean cargarCitasArchXLSX(InputStream contenido, PucpMultipartRequest multiRequest) throws Exception, SQLException {
 		
-		HSSFWorkbook wbook = null;
+		XSSFWorkbook  wbook = null;
         int fila = 0, columna = 0;
         boolean finTabla=false;
 		boolean insertar=false;
@@ -80,11 +80,11 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
         
         try {        
 
-			wbook = new HSSFWorkbook(contenido);
+			wbook = new XSSFWorkbook (contenido);
 	        /* Obtenemos la primera hoja del archivo Excel */
-	        HSSFSheet sheet = wbook.getSheetAt(0);	        
+			XSSFSheet  sheet = wbook.getSheetAt(0);	        
 	        /* Obtenemos la cabecera ubicada en primera fila de la hoja obtenida */
-	        HSSFRow row = sheet.getRow(0);
+	        XSSFRow row = sheet.getRow(0);
 	        
 	        /* Si el archivo excel no contiene datos */
 	        if (row == null) return false; 
@@ -119,7 +119,7 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 	        	int nColumnas = nUltimaCelda-nPrimeraCelda;
 	        	
 	        	/* Recorremos cada celda */
-	            HSSFCell cell;
+	            XSSFCell cell;
 	        	
 	        	for (int i = nPrimeraCelda; i < nUltimaCelda; i++){	        			        	
 	        		
@@ -131,22 +131,143 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 	        		if ((cell != null) && (i <= 5)){	        			
 	        			
 	        			switch(i){
-	        				case 0: indice = obtenValorStringCelda(cell); 
+	        				case 0: indice = obtenValorStringCeldaXSSF(cell); 
 	        						break;
-	        				case 1: dia = obtenValorStringCeldaDate(cell);
+	        				case 1: dia = obtenValorStringCeldaDateXSSF(cell);
 	        						break;
-	        				case 2: hora = obtenValorStringCelda(cell);
+	        				case 2: hora = obtenValorStringCeldaXSSF(cell);
 	        						break;
-	        				case 3: codigo = obtenValorStringCelda(cell);
+	        				case 3: codigo = obtenValorStringCeldaXSSF(cell);
 	        						break;
-	        				case 4: nombre = obtenValorStringCelda(cell);
+	        				case 4: nombre = obtenValorStringCeldaXSSF(cell);
 	        						break;
-	        				case 5: lugar = obtenValorStringCelda(cell);
+	        				case 5: lugar = obtenValorStringCeldaXSSF(cell);
 	        						break;
 	        				default: break;
 	        			}
 	        			
 	        		}	        
+	        		
+	        		if (i==5){	        				        			
+	        					        			
+	        			hora = dia + " " + hora.substring(0, 5) + ":00";
+	        			if (codigo.length() == 4)
+	        				codigo = "0000" + codigo;
+	        			
+	        			insertar = this.insertarCita(sAnio, sCiclo, sTramite, dia, hora, codigo, nombre, lugar); 	
+	        			
+	        			break;
+	        			
+	        		}
+	        		
+		        		
+	        	}	        	
+	        	    
+	            
+	        }
+	        
+        } catch (Exception e) {
+
+        	throw new PucpException(e.getMessage());
+		} 
+        
+		return true;      
+    }
+	
+
+
+
+
+	public boolean cargarCitasArchXLS(InputStream contenido, PucpMultipartRequest multiRequest) throws Exception, SQLException {
+		
+		HSSFWorkbook wbook = null;
+        int fila = 0, columna = 0;
+        boolean finTabla=false;
+		boolean insertar=false;
+        
+        String indice = "";
+        String dia = "";
+        String hora = "";
+        String codigo = "";
+        String nombre = "";
+        String lugar = "";                     
+    
+        
+        try {        
+
+			wbook = new HSSFWorkbook(contenido);
+	        /* Obtenemos la primera hoja del archivo Excel */
+	        HSSFSheet sheet = wbook.getSheetAt(0);	        
+	        /* Obtenemos la cabecera ubicada en primera fila de la hoja obtenida */
+	        HSSFRow row = sheet.getRow(0);
+	        HSSFRow row1 = sheet.getRow(1);
+	        HSSFRow row2 = sheet.getRow(2);	        
+	        /* Si el archivo excel no contiene datos 
+	        if (row == null) return false; 
+	        */
+        
+	        /* Numero de filas en la hoja */
+	        int nTotalFilas = sheet.getPhysicalNumberOfRows();	        	       
+	        
+			String sAnio = multiRequest.getParameter("anio");
+			String sCiclo = multiRequest.getParameter("ciclo");
+			String sTramite = multiRequest.getParameter("tramite");						
+	        
+	        for (int r = 3; r < nTotalFilas+2; r++){	 
+	        	
+	        	//if (r > 1) throw new PucpException("r = " + r);
+	        	
+	        	/* Guardamos cada fila */
+	        	row = sheet.getRow(r);
+	        	
+	        	/* Verificamos que no sea nula la fila */
+	        	if (row == null) break;
+	        		
+	        	/* Obtenemos la primera celda de la fila */
+	        	int nPrimeraCelda = row.getFirstCellNum();
+	        	
+	        	/* Obtenemos la ultima celda de la fila */
+	        	int nUltimaCelda = row.getLastCellNum();
+	        	
+	        	/* Verificamos que la cantidad de columnas sea correcta */
+	        	int nColumnas = nUltimaCelda-nPrimeraCelda;
+	        	
+	        	/* Recorremos cada celda */
+	            HSSFCell cell;
+	        	
+	        	for (int i = nPrimeraCelda; i < nUltimaCelda; i++){	        			        	
+	        		
+	        		cell = row.getCell((short)i);	        
+	        		
+	        		/*
+	        		if (r > 12)
+		        		throw new PucpException("Row = " + r + " - " + row + " cell = " + cell);
+	        		*/
+	        		fila = r;
+	        		columna = i;
+
+	        		if ((cell != null) && (i <= 5)){	        			
+	        			
+	        			switch(i){
+	        				case 0: indice = obtenValorStringCeldaHSSF(cell); 
+	        						break;
+	        				case 1: dia = obtenValorStringCeldaDateHSSF(cell);
+	        						break;
+	        				case 2: hora = obtenValorStringCeldaHSSF(cell);
+	        						break;
+	        				case 3: codigo = obtenValorStringCeldaHSSF(cell);
+	        						break;
+	        				case 4: nombre = obtenValorStringCeldaHSSF(cell);
+	        						break;
+	        				case 5: lugar = obtenValorStringCeldaHSSF(cell);
+	        						break;
+	        				default: break;
+	        			}	        				        			
+	        			
+	        		}
+	        		
+	        		if (indice == null)
+	        			break;
 	        		
 	        		if (i==5){	        				        			
 	        					        			
@@ -165,11 +286,7 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 	        		
 	        			*/
 	        			
-	        			insertar = this.insertarCita(sAnio, sCiclo, sTramite, dia, hora, codigo, nombre, lugar); 	
-	        			
-	        				        			
-	        			//insertar = insertarCita(cicloAno, ciclo, tramite, dia, hora, codigo, nombre, lugar); 	     
-	        			        		
+	        			insertar = this.insertarCita(sAnio, sCiclo, sTramite, dia, hora, codigo, nombre, lugar); 	        			        		
 	        			
 	        			break;
 	        			
@@ -177,6 +294,9 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 	        		
 		        		
 	        	}	        	
+	        	
+	        	if (indice == null)
+	        		break;
 	        	    
 	            
 	        }
@@ -284,8 +404,9 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 		
 	}
 	*/
-
-	public String obtenValorStringCelda (HSSFCell cell) throws Exception
+	
+	/* Obtener valores strings a partir de celdas de un archivo xls */
+	public String obtenValorStringCeldaHSSF (HSSFCell cell) throws Exception
 	{
 		String valor = null;
 		try
@@ -322,8 +443,72 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 		}
 	}	
 	
+	/* Obtener valores strings a partir de celdas de un archivo xlsx */
+	public String obtenValorStringCeldaXSSF (XSSFCell cell) throws Exception
+	{
+		String valor = null;
+		try
+		{
+			switch(cell.getCellType())
+			{	case HSSFCell.CELL_TYPE_BLANK:
+					valor = null;
+					break;
+				case HSSFCell.CELL_TYPE_STRING:
+					valor = cell.getRichStringCellValue().getString();
+					break;
+				case HSSFCell.CELL_TYPE_NUMERIC:
+					valor = String.valueOf((long)cell.getNumericCellValue());
+					break;
+				case HSSFCell.CELL_TYPE_BOOLEAN:
+					valor = Boolean.toString(cell.getBooleanCellValue());
+					break;
+				case HSSFCell.CELL_TYPE_FORMULA:
+					valor = Integer.toString((int)cell.getNumericCellValue());
+					break;				
+				default:
+					valor = "ERROR";		// Error de Valor en el Campo
+					break;
+			}
+			return valor;
+		}
+		catch (Exception exc) {
+		    if (con != null && !con.isClosed()) {
+		       try { con.rollback();
+		       } catch (Exception e) {
+		      }
+		    }
+		throw exc;	
+		}
+	}	
 	
-	public String obtenValorStringCeldaDate(HSSFCell cell) throws Exception
+	public String obtenValorStringCeldaDateXSSF(XSSFCell cell) throws Exception
+	{
+
+		try
+		{
+
+			
+			 String DATE_FORMAT_NOW = "yyyy/MM/dd";
+			 Date date = new Date();
+			 SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+			 
+			
+			date = (cell.getDateCellValue());
+			String stringDate = sdf.format(date );
+
+			return stringDate;
+		}
+		catch (Exception exc) {
+		    if (con != null && !con.isClosed()) {
+		       try { con.rollback();
+		       } catch (Exception e) {
+		      }
+		    }
+		throw exc;	
+		}
+	}
+	
+	public String obtenValorStringCeldaDateHSSF(HSSFCell cell) throws Exception
 	{
 
 		try

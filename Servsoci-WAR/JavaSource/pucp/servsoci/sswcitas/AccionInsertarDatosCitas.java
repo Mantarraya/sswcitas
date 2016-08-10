@@ -47,20 +47,29 @@ public class AccionInsertarDatosCitas extends PucpAccion{
 	    	CitasAlumnosBeanFunction CitasExcel = new CitasAlumnosBeanFunction();
 	    	CitasExcel.setCon(connectionServSoci);
 	    	
+
 	    	/*
-	    	
 	    	if (1==1){
 	    		throw new PucpException("Anio = " + anio + " Ciclo = " + ciclo + " Tramite = " + tramite + 
 	    				                " Nombre de archivo = " + nombreArchivo + " Extension = " + extension);
 	    	}
+			*/
+
 	    	
-	    	*/
-	    	
-	    	
-	    	boolean cargoCita;
-	    	cargoCita = CitasExcel.cargarCitas(contenido, multiRequest);
-	    	
-	    	
+	    	boolean cargoCita = false;
+	    		    	
+	    	if (extension.equals("xls")){
+	    			    		
+	    		cargoCita = CitasExcel.cargarCitasArchXLS(contenido, multiRequest);
+	    		
+	    		if (cargoCita == false){
+	    			throw new PucpException("Ocurrio un error al cargar el archivo excel");
+	    		}
+	    		
+	    	}	    
+	    	else{
+	    		throw new PucpException("Adjuntar archivos solo con extension .xls");
+	    	}
 	    	
 	    	
 	    /*	
