@@ -122,16 +122,29 @@ function verificaApostrofe(dato)
 </table>
 
 
+<br>
+<br>
+
+
 
 <%-- Panel de asignacion de citas --%>
 <% 
-String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=MostrarInstrucciones"; 
+String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=RegistrarCitas"; 
 %>
-<table align="right" border-width="0" width="25%" >
+<table align="right" border-width="0" width="50%" >
 <tr>
 
    <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="<%=response.encodeURL(urlCitas)%>" 
-       onMouseOver="self.status = ''; return true">Panel de asignación de citas</a></td>
+       onMouseOver="self.status = ''; return true">Registrar citas</a></td>
+
+   <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="<%=response.encodeURL(urlCitas)%>" 
+       onMouseOver="self.status = ''; return true">Activar declaración jurada familiar</a></td>
+
+   <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="<%=response.encodeURL(urlCitas)%>" 
+       onMouseOver="self.status = ''; return true">Asignar citas</a></td> 
+
+   <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="<%=response.encodeURL(urlCitas)%>" 
+       onMouseOver="self.status = ''; return true">Exportar citas</a></td>             
 
 </tr>
 </table> 
@@ -179,15 +192,15 @@ String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=MostrarInstrucciones"
 </tr>
 <tr>
 	
-	<td width="80%" >2. </td>
+	<td width="80%" >2. Activar declaracion jurada familiar</td>
 </tr>
 <tr>
 	
-	<td width="80%" >3. </td>
+	<td width="80%" >3. Asignar citas</td>
 </tr>
 <tr>
 	
-	<td width="80%" >4. </td>	
+	<td width="80%" >4. Exportar citas</td>	
 </tr>
 </table>
 

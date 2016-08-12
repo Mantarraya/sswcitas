@@ -109,19 +109,34 @@ function verificaApostrofe(dato)
 <input type="hidden" name="numCitas" value="<%=numCitas%>">
 <input type="hidden" name="descripcion"value="<%=descripcion%>">
 
-
-
-
    
 </form>
 
-<br><br>
 
 
+</table>
 
 
+<!-- Registrar Citas -->
 
-</td></tr>
+<% String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=RegistrarCitas";  %>
+
+<table align="right" border-width="0" width="20%" >
+<tr>
+   <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="<%=response.encodeURL(urlCitas)%>" onMouseOver="self.status = ''; return true">Registrar citas</a></td>   
+</tr>
+</table> 
+
+
+<!--  Boton Finalizar -->
+
+<table border="0" width="100%">
+<tr><td width="100%" colspan="3" align="right">
+
+<a href=  "/pucp/servsoci/sswcitas/sswcitas?accion=MostrarInstrucciones" >
+<img src="/pucp/lib/images/b_finalizar.gif" class="pucpBoton" alt="">
+</a>
+
 </table>
 
 
@@ -175,18 +190,16 @@ function verificaApostrofe(dato)
  <br>
 
 
-<!--  Boton Regresar -->
+<!--  Boton Finalizar -->
 <table border="0" width="100%">
 <tr><td width="100%" colspan="3" align="center">
 
-<a href=  "/pucp/servsoci/sswcitas/sswcitas?accion=" >
-<img src="/pucp/lib/images/b_continuar.gif" class="pucpBoton" alt="">
+<a href=  "/pucp/servsoci/sswcitas/sswcitas?accion=MostrarInstrucciones" >
+<img src="/pucp/lib/images/b_finalizar.gif" class="pucpBoton" alt="">
 </a>
 
 
-<a href= "javascript:history.back();" >
-<img src="/pucp/lib/images/b_regresar.gif" class="pucpBoton" alt="">
-</a>
+</table>
 
 
 <br>
