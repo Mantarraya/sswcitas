@@ -66,12 +66,12 @@
 
 <%--  Juan Tomairo - Julio 2016 --%>
 <% 
-String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=RegistrarCitas"; 
+String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=MostrarInstrucciones"; 
 if(!esAlumno.equals("1")){ %>
 <table align="right" border-width="0" width="50%" >
 <tr>
 
-   <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="<%=response.encodeURL(urlCitas)%>"   onMouseOver="self.status = ''; return true">Registrar citas</a></td>
+   <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="<%=response.encodeURL(urlCitas)%>"   onMouseOver="self.status = ''; return true">Panel de asignación de citas</a></td>
    <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="javascript:actualizarManualDeInstrucciones()" onMouseOver="self.status = ''; return true">Actualizar manual de instrucciones</a></td>
    <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="javascript:actualizarManualDJFPorTipo()" onMouseOver="self.status = ''; return true">Actualizar formato de aceptacion de escala 5</a></td>
 	
