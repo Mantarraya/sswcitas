@@ -35,10 +35,14 @@ public class AccionInsertarDatosCitas extends PucpAccion{
 			String anio = multiRequest.getParameter("anio");
 	    	String ciclo = multiRequest.getParameter("ciclo");
 	    	String tramite = multiRequest.getParameter("tramite");
+	    	String descripcion = multiRequest.getParameter("descripcion");
+	    	
+	    	
 	    	
 	    	request.setAttribute("anio",multiRequest.getParameter("anio"));
 	    	request.setAttribute("ciclo",multiRequest.getParameter("ciclo"));
 	    	request.setAttribute("tramite",multiRequest.getParameter("tramite"));
+	    	request.setAttribute("descripcion",multiRequest.getParameter("descripcion"));
 	    	
 	    	String nombreArchivo  = multiRequest.getFileFullName("file");
 			String extension = multiRequest.getFileExtension("file");
@@ -51,24 +55,34 @@ public class AccionInsertarDatosCitas extends PucpAccion{
 	    	/*
 	    	if (1==1){
 	    		throw new PucpException("Anio = " + anio + " Ciclo = " + ciclo + " Tramite = " + tramite + 
-	    				                " Nombre de archivo = " + nombreArchivo + " Extension = " + extension);
+	    				                " Nombre de archivo = " + nombreArchivo + " Extension = " + extension +
+	    				                " Descripcion = " + descripcion);
 	    	}
 			*/
 
 	    	
-	    	boolean cargoCita = false;
+	    	int cargoCita = -1;
+	    	
+	    	
 	    		    	
 	    	if (extension.equals("xls")){
 	    			    		
-	    		cargoCita = CitasExcel.cargarCitasArchXLS(contenido, multiRequest);
+	    		cargoCita = CitasExcel.cargarCitasArchXLS(contenido, multiRequest);	
 	    		
-	    		if (cargoCita == false){
+	    		String numCitas = Integer.toString(cargoCita);	    		
+	    		request.setAttribute("numCitas", numCitas);
+	    		
+	    		if (cargoCita == -1){
 	    			throw new PucpException("Ocurrio un error al cargar el archivo excel");
 	    		}
+
 	    		
 	    	}	    
+	    	else if (extension.equals("xlsx")){
+	    		throw new PucpException("Se debe adjuntar un archivo solo con extension .xls, debera guardar nuevamente el archivo con el Tipo: Libro de Excel 97-2003");
+	    	}
 	    	else{
-	    		throw new PucpException("Adjuntar archivos solo con extension .xls");
+	    		throw new PucpException("Se debe adjuntar un archivo con extension .xls");
 	    	}
 	    	
 	    	

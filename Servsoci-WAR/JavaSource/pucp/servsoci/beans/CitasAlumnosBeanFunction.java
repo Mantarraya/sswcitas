@@ -178,7 +178,7 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 
 
 
-	public boolean cargarCitasArchXLS(InputStream contenido, PucpMultipartRequest multiRequest) throws Exception, SQLException {
+	public int cargarCitasArchXLS(InputStream contenido, PucpMultipartRequest multiRequest) throws Exception, SQLException {
 		
 		HSSFWorkbook wbook = null;
         int fila = 0, columna = 0;
@@ -190,7 +190,9 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
         String hora = "";
         String codigo = "";
         String nombre = "";
-        String lugar = "";                     
+        String lugar = "";            
+        
+        int r;
     
         
         try {        
@@ -213,7 +215,7 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 			String sCiclo = multiRequest.getParameter("ciclo");
 			String sTramite = multiRequest.getParameter("tramite");						
 	        
-	        for (int r = 3; r < nTotalFilas+2; r++){	 
+	        for (r = 3; r < nTotalFilas+2; r++){	 
 	        	
 	        	//if (r > 1) throw new PucpException("r = " + r);
 	        	
@@ -290,7 +292,7 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 	        			
 	        			break;
 	        			
-	        		}
+	        		}	        		
 	        		
 		        		
 	        	}	        	
@@ -306,7 +308,7 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
         	throw new PucpException(e.getMessage());
 		} 
         
-		return true;      
+		return (r-3);      
     }	
 
 	

@@ -90,18 +90,28 @@ function verificaApostrofe(dato)
 <input type="hidden" name="anio" > 
 <input type="hidden" name="ciclo" >
 <input type="hidden" name="tramite" >
+<input type="hidden" name="descripcion" >
 
 
 <% String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=RegistrarCitas";  %>
 
 <table align="right" border-width="0" width="20%" >
 <tr>
-   <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="<%=response.encodeURL(urlCitas)%>" onMouseOver="self.status = ''; return true">Registrar citas</a></td>
+   <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="<%=response.encodeURL(urlCitas)%>" onMouseOver="self.status = ''; return true">Registrar citas</a></td>   
 </tr>
 </table> 
-<br>
 
-<br>
+<%-- Boton Regresar --%>
+
+<table border="0" width="100%">
+<tr><td width="100%" colspan="3" align="right">
+<a href= "javascript:history.back();" >
+<img src="/pucp/lib/images/b_regresar.gif" class="pucpBoton" alt="">
+</a>
+
+</td></tr>
+</table>
+
 <table class = "pucpTablaTitulo">
 <tr><td>
 <font class="pucpTitulo" >

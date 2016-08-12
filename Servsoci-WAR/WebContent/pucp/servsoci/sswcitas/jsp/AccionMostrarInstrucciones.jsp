@@ -29,10 +29,6 @@
 <jsp:useBean id="anio" scope="request" class="java.lang.String" />
 <jsp:useBean id="ciclo" scope="request" class="java.lang.String" />
 <jsp:useBean id="tramite" scope="request" class="java.lang.String" />
-<jsp:useBean id="descripcion" scope="request" class="java.lang.String" />
-<jsp:useBean id="numCitas" scope="request" class="java.lang.String" />
-
-
 
 <HTML>
 <head>
@@ -100,23 +96,24 @@ function verificaApostrofe(dato)
 
 
 
+
+
+
+
 <form method="post" name="formcriterios" id="formcriterios" action="sswcitas" enctype="multipart/form-data"  >
 
 <input type="hidden" name="accion" value="InsertarDatosCitas"> 
 <input type="hidden" name="anio" value="<%=anio%>">
 <input type="hidden" name="ciclo" value="<%=ciclo%>">
 <input type="hidden" name="tramite" value="<%=tramite%>">
-<input type="hidden" name="numCitas" value="<%=numCitas%>">
-<input type="hidden" name="descripcion"value="<%=descripcion%>">
+
+
 
 
 
 
    
 </form>
-
-<br><br>
-
 
 
 
@@ -125,50 +122,73 @@ function verificaApostrofe(dato)
 </table>
 
 
+
+<%-- Panel de asignacion de citas --%>
+<% 
+String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=MostrarInstrucciones"; 
+%>
+<table align="right" border-width="0" width="25%" >
+<tr>
+
+   <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="<%=response.encodeURL(urlCitas)%>" 
+       onMouseOver="self.status = ''; return true">Panel de asignación de citas</a></td>
+
+</tr>
+</table> 
+<br>
+
+<!--  Boton Regresar -->
+<table border="0" width="100%">
+<tr><td width="100%" colspan="3" align="right">
+<a href= "javascript:history.back();" >
+<img src="/pucp/lib/images/b_regresar.gif" class="pucpBoton" alt="">
+</a>
+
+<table width="98%">
+
+
 <%-- Registrar citas a los nuevos alumnos ingresantes --%>
 
 <table align="right" border-width="0" width="20%" class = "pucpTablaTitulo">
 <tr><td>
 <font class="pucpTitulo" >
-     Registrar citas a los nuevos alumnos ingresantes 
+     OFICINA DE SERVICIO DE APOYO SOCIAL
 </font></td>
 <td></td>
 </tr>
 </table>
-<br>
-<br>
 
-
-<%-- Estado del registro --%>
+<DIV ALIGN="right">
+<TABLE class="pucpTablaTitulo" width="100%">
+  <tr>
+    <TD ALIGN="left" class="pucpInfReg">Panel de asignación de citas</TD>
+  </tr>
+</table>
+</DIV>
 
 <table class = "pucpTablaSubTitulo" width="100%">
-<tr><td><font class = "pucpSubTitulo" > Estado del registro </font></td> </tr>
+<tr><td><font class = "pucpSubTitulo" > Indicaciones </font></td> </tr>
 </table>
 
 <br>
 
+<table align="center" width="30%">
+<tr>
 
-<table width="30%" align="center">
-
-  <tr>
-    <td width="80%"> Registro de citas exitoso </td>
-  </tr>
-
-  <tr>
-    <td width="80%"> Ciclo: <%=anio%>-<%=ciclo%> </td>
-  </tr>
-
-  <tr>
-    <td width="80%"> Tramite: <%=descripcion%> </td>
-  </tr>
-
-  <tr>
-    <td width="80%"> Numero de Citas:<%=numCitas%> </td>
-  </tr>
-
-
-
-
+	<td width="80%" >1. Registrar citas a los nuevos alumnos ingresantes</td>
+</tr>
+<tr>
+	
+	<td width="80%" >2. </td>
+</tr>
+<tr>
+	
+	<td width="80%" >3. </td>
+</tr>
+<tr>
+	
+	<td width="80%" >4. </td>	
+</tr>
 </table>
 
 
@@ -179,14 +199,17 @@ function verificaApostrofe(dato)
 <table border="0" width="100%">
 <tr><td width="100%" colspan="3" align="center">
 
-<a href=  "/pucp/servsoci/sswcitas/sswcitas?accion=" >
+
+<a href=  "/pucp/servsoci/sswcitas/sswcitas?accion=RegistrarCitas" >
 <img src="/pucp/lib/images/b_continuar.gif" class="pucpBoton" alt="">
 </a>
-
-
 <a href= "javascript:history.back();" >
 <img src="/pucp/lib/images/b_regresar.gif" class="pucpBoton" alt="">
 </a>
+
+</td></tr>
+</table>
+
 
 
 <br>

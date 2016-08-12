@@ -112,6 +112,26 @@ public class CitasAlumnosBeanData extends PucpBeanData {
 		return tramite;
 	}
 	
+	
+	/* Descripcion */
+
+	private String descripcion = "";
+	
+	/**
+	 * @param tramite la descripcion del tramite a establecer
+	 */
+	public void setDescripcion(String descripcion) {
+		this.tramite = descripcion;
+	}
+
+	/**
+	 * @return la descripcion del tramite
+	 */
+	public String getDescripcion() {
+		return descripcion;
+	}
+	
+	
 	/* Indica Asignacion */
 	
 	private String indicaAsignacion = "";
