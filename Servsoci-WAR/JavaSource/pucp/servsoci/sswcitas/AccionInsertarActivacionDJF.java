@@ -40,7 +40,10 @@ public class AccionInsertarActivacionDJF extends PucpAccion{
 	    	
 	    	String descripcion = ActivacionDJF.obtenerDescripcion(tramite);
     		request.setAttribute("descripcion", descripcion);
-			
+    		
+    		String tipogrupo = ActivacionDJF.obtenerTipoGrupo(tramite);
+    		request.setAttribute("tipogrupo", tipogrupo);
+    		    		
 			
 			pucpForward(request, response, "/pucp/servsoci/sswcitas/jsp/AccionInsertarActivacionDJF.jsp");			
 

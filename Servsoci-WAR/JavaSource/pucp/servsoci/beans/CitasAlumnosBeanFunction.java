@@ -429,7 +429,7 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 
 
 
-	private String obtenerTipoGrupo(String tramite) throws Exception {
+	public String obtenerTipoGrupo(String tramite) throws Exception {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -443,24 +443,22 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
     		rset = null;
        		  
     		dml = "SELECT A.TIPOGRUPO FROM SERVSOCI.TRAMPROVXTIPOGRUPO A " +
-    			  "WHERE TRAMITE = ?";   		
+    			  "WHERE A.TRAMITE = ?";   		
     		pstmt = con.prepareStatement(dml);
     		pstmt.setString(1, tramite);
     	    rset=pstmt.executeQuery();
-    		
-    					
+
     		
 
     	    if (!rset.next() ){
-    	        throw new PucpException("Error en la lectura del tipo grupo" + tramite) ;
+    	        throw new PucpException("Error en la lectura del tipogrupo de tramite: " + tramite) ;
     	    }
     	    else{
     	    	tipogrupo = rset.getString(1);
-    	    	throw new PucpException("Tipo Grupo = ", tipogrupo) ;
-    	    }       		
+    	    }      		
     		
     		
-			//return tipogrupo;
+			return tipogrupo;
 			   			
 		} catch (Exception e) {
 			super.con.rollback();
