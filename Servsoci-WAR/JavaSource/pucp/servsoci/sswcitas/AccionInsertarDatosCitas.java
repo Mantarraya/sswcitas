@@ -26,24 +26,15 @@ public class AccionInsertarDatosCitas extends PucpAccion{
 	    Connection connectionServSoci = this.getConnection("DESA", "SERVSOCI", "AUX_ILIO_");
 	    
 	    try {	    		    
-	    	
-	    	CitasAlumnosBeanFunction archivoExcel= new CitasAlumnosBeanFunction();
-			archivoExcel.setCon(connectionServSoci);
-			
-			CitasAlumnosBeanData archivo = archivoExcel.obtenerArchivo(multiRequest);
 			
 			String anio = multiRequest.getParameter("anio");
 	    	String ciclo = multiRequest.getParameter("ciclo");
-	    	String tramite = multiRequest.getParameter("tramite");
-	    	String descripcion = multiRequest.getParameter("descripcion");
-	    	
-	    	
+	    	String tramite = multiRequest.getParameter("tramite");   	
 	    	
 	    	request.setAttribute("anio",multiRequest.getParameter("anio"));
 	    	request.setAttribute("ciclo",multiRequest.getParameter("ciclo"));
 	    	request.setAttribute("tramite",multiRequest.getParameter("tramite"));
-	    	request.setAttribute("descripcion",multiRequest.getParameter("descripcion"));
-	    	
+
 	    	String nombreArchivo  = multiRequest.getFileFullName("file");
 			String extension = multiRequest.getFileExtension("file");
 			InputStream contenido = multiRequest.getFileContent("file");
@@ -51,7 +42,6 @@ public class AccionInsertarDatosCitas extends PucpAccion{
 	    	CitasAlumnosBeanFunction CitasExcel = new CitasAlumnosBeanFunction();
 	    	CitasExcel.setCon(connectionServSoci);
 	    	
-
 	    	/*
 	    	if (1==1){
 	    		throw new PucpException("Anio = " + anio + " Ciclo = " + ciclo + " Tramite = " + tramite + 
@@ -59,15 +49,21 @@ public class AccionInsertarDatosCitas extends PucpAccion{
 	    				                " Descripcion = " + descripcion);
 	    	}
 			*/
-
 	    	
 	    	int cargoCita = -1;
-	    	
-	    	
-	    		    	
+	    		    	    		    	
 	    	if (extension.equals("xls")){
-	    			    		
+	    		
+	    		
+	    		/* Eliminar citas en la tabla temporal SERVSOCI.CITASXASIGNAR */
+	    		
+	    		CitasExcel.eliminarCitas(anio, ciclo, tramite);	    		
+	    		
+	    		/* Cargaremos las citas a la base de datos (SERVSOCICITASXASIGNAR) */	    		
 	    		cargoCita = CitasExcel.cargarCitasArchXLS(contenido, multiRequest);	
+	    		
+	    		String descripcion = CitasExcel.obtenerDescripcion(tramite);
+	    		request.setAttribute("descripcion", descripcion);
 	    		
 	    		String numCitas = Integer.toString(cargoCita);	    		
 	    		request.setAttribute("numCitas", numCitas);
@@ -107,8 +103,7 @@ public class AccionInsertarDatosCitas extends PucpAccion{
 		      if (!cargoCitasServSoci) {
 		        throw new PucpException("Ocurrió un error al cargar el archivo excel");
 		      }
-	    	
-   				
+	    	   				
 		      */
 	    	
  	        pucpForward(request, response, "/pucp/servsoci/sswcitas/jsp/AccionInsertarDatosCitas.jsp");
@@ -136,11 +131,7 @@ public class AccionInsertarDatosCitas extends PucpAccion{
 	          throw exc;
 	        }
 	    }		
-		
-		
-		
+						
 	}
 	
-	
 }
-

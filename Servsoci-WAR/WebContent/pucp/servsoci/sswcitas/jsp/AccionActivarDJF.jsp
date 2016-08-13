@@ -2,7 +2,7 @@
 /**
  * PUCP Copyright (c) 2001 PUCP DIRINFO
  * @author Juan Tomairo
- * Este archivo JSP contiene los criterios de la consulta para el registro de citas 
+ * Este archivo JSP contiene los criterios de la consulta para la activacion de la DJF
   --%>
 <%@ page contentType="text/html;charset=ISO-8859-1"  %>
 <%@ page errorPage="/pucp/lib/jsp/PucpErrorPage.jsp" %>
@@ -10,12 +10,6 @@
 <%@ page import="pucp.lib.PucpAplicacion" %>
 <%@ page import="pucp.lib.PucpConstant" %>
 <%@ page import="pucp.lib.PucpSession" %>
-
-<% 
-  PucpSession.getVerificar(application, request, response, 1);
-  PucpAplicacion.getVerificarServicio(application, request, response, 1, "sswdjf", PucpConstant.SER_INGRESAR);
-%>
-
 
 <HTML>
 <head>
@@ -85,8 +79,8 @@ function verificaApostrofe(dato)
 
 </SCRIPT>
 
-<form method="post" name="formcriterios" id="formcriterios" action="sswcitas" enctype="multipart/form-data"  >
-<input type="hidden" name="accion" value="InsertarDatosCitas"> 
+<form  name="formcriterios" action="sswcitas" method="post">
+<input type="hidden" name="accion" value="InsertarActivacionDJF"> 
 <input type="hidden" name="anio" > 
 <input type="hidden" name="ciclo" >
 <input type="hidden" name="tramite" >
@@ -115,7 +109,7 @@ function verificaApostrofe(dato)
 <table class = "pucpTablaTitulo">
 <tr><td>
 <font class="pucpTitulo" >
-     Registrar citas a los nuevos alumnos ingresantes
+     Activar declaración jurada familiar a los nuevos alumnos ingresantes
 </font></td>
 <td></td>
 </tr>
@@ -169,31 +163,23 @@ function verificaApostrofe(dato)
        }
       %>
       <td width="50%" class="pucpCampo" width="70%"><%= PucpLenguaje.toHTML(comboTramite,"comboTramite","class='PucpCampo'",Seleccionado)%>&nbsp;</td>
-    </tr>
-        
-
-<%-- Adjuntar Excel - Examinar --%>
-
-
-      <tr>
-      <td><font class="pucpEtiqOblig">Archivo</font></td>
-    	<td><input type="file" name="file" size="60">
-		</td>
-	 </tr>	
+    </tr>        
 	 	
 </table> 
 
 
 
-
+<br>
 
 
 
 <table border="0" width="100%">
 <tr><td width="100%" colspan="3" align="center">
 
-<a href=  "javascript:boton_Registrar_Citas();" >
-<img src="/pucp/lib/images/b_registrar.gif" class="pucpBoton" alt="">
+<% String urlRegistrar = "/pucp/servsoci/sswcitas/sswcitas?accion=";  %>
+
+<a href=  "javascript:boton_Activar_DJF();" >
+<img src="/pucp/lib/images/b_activar.gif" class="pucpBoton" alt="">
 </a>
 <a href= "javascript:history.back();" >
 <img src="/pucp/lib/images/b_regresar.gif" class="pucpBoton" alt="">
@@ -204,7 +190,7 @@ function verificaApostrofe(dato)
 <br>
 <br>
 <table width="98%">
-  <tr>
+  <tr>    
     <td>
 
   <font class="pucpEtiq"><strong>Importante</strong><br>

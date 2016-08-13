@@ -60,7 +60,7 @@ function VerificaCriterios()
 function contieneApostrofes(dato)
 {
   if (verificaApostrofe(dato))
-    alert("La búsqueda no debe tener comillas simples o dobles.");
+    alert("La b�squeda no debe tener comillas simples o dobles.");
 }
    
 function verificaApostrofe(dato)
@@ -70,7 +70,7 @@ function verificaApostrofe(dato)
   var cadena = "";
     for(i=0;i<val.length;i++)
     {
-      if ((val.charAt(i)== "'") || (val.charAt(i)== "´") || (val.charAt(i)== "\""))
+      if ((val.charAt(i)== "'") || (val.charAt(i)== "�") || (val.charAt(i)== "\""))
         {
           cadena = val.substr(0, i);
       cadena = cadena + val.substr(i+1);
@@ -137,8 +137,8 @@ String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=RegistrarCitas";
    <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="<%=response.encodeURL(urlCitas)%>" 
        onMouseOver="self.status = ''; return true">Registrar citas</a></td>
 
-   <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="<%=response.encodeURL(urlCitas)%>" 
-       onMouseOver="self.status = ''; return true">Activar declaración jurada familiar</a></td>
+   <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="/pucp/servsoci/sswcitas/sswcitas?accion=ActivarDJF" 
+       onMouseOver="self.status = ''; return true">Activar declaraci�n jurada familiar</a></td>
 
    <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="<%=response.encodeURL(urlCitas)%>" 
        onMouseOver="self.status = ''; return true">Asignar citas</a></td> 
@@ -174,7 +174,7 @@ String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=RegistrarCitas";
 <DIV ALIGN="right">
 <TABLE class="pucpTablaTitulo" width="100%">
   <tr>
-    <TD ALIGN="left" class="pucpInfReg">Panel de asignación de citas</TD>
+    <TD ALIGN="left" class="pucpInfReg">Panel de asignaci�n de citas</TD>
   </tr>
 </table>
 </DIV>
@@ -185,24 +185,29 @@ String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=RegistrarCitas";
 
 <br>
 
+
 <table align="center" width="30%">
 <tr>
-
-	<td width="80%" >1. Registrar citas a los nuevos alumnos ingresantes</td>
+	<td width="20%" align="center"><img src="/pucp/lib/images/i_personas1.gif"></a></td>
+	<td width="80%" ><a href="/pucp/servsoci/sswcitas/sswcitas?accion=RegistrarCitas" class="pucpLink">1. Registrar citas a los nuevos alumnos ingresantes</a></td>
 </tr>
 <tr>
-	
-	<td width="80%" >2. Activar declaracion jurada familiar</td>
+	<td width="20%" align="center"><img width="32" heigh="35" src="/pucp/lib/images/i_db.gif"></a></td>
+	<td width="80%" ><a href="/pucp/servsoci/sswcitas/sswcitas?accion=ActivarDJF" class="pucpLink">2. Activar declaracion jurada familiar</a></td>
 </tr>
 <tr>
-	
-	<td width="80%" >3. Asignar citas</td>
+	<td width="20%" align="center"><img src="/pucp/lib/images/i_aprobacion.gif"></a></td>
+	<td width="80%" ><a href="javascript:BuscarDocumentoDJF();" class="pucpLink">3. Asignar citas</a></td>
 </tr>
 <tr>
-	
-	<td width="80%" >4. Exportar citas</td>	
+	<td width="20%" align="center"><img src="/pucp/lib/images/i_xls.gif"  width="40%" ></a></td>
+	<td width="80%" ><a href="javascript:abrirPreguntasFrecuentes();" class="pucpLink">4. Exportar citas</a></td>	
 </tr>
 </table>
+
+
+
+
 
 
  <br>
@@ -234,8 +239,8 @@ String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=RegistrarCitas";
       <td>
 
   <font class="pucpEtiq"><strong>Importante</strong><br>
-  La información ofrecida puede ser utilizada para comunicaciones individuales y con fines académicos. 
-  La Pontificia Universidad Católica del Perú NO AUTORIZA su uso para confeccionar bases de datos o generar envíos masivos (SPAM).
+  La informaci�n ofrecida puede ser utilizada para comunicaciones individuales y con fines acad�micos. 
+  La Pontificia Universidad Cat�lica del Per� NO AUTORIZA su uso para confeccionar bases de datos o generar env�os masivos (SPAM).
   </font>
     </td>
   </tr>

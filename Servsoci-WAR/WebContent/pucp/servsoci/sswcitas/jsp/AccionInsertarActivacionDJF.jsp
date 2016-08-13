@@ -2,7 +2,7 @@
 /**
  * PUCP Copyright (c) 2001 PUCP DIRINFO
  * @author Juan Tomairo
- * Este archivo JSP contiene los criterios de la consulta para el registro de citas 
+ * Este archivo JSP contiene los criterios de la consulta para la activacion de la DJF 
   --%>
 
 <%@ page contentType="text/html;charset=ISO-8859-1"  %>
@@ -23,16 +23,12 @@
 <link REL ="stylesheet" TYPE="text/css" HREF="/pucp/ambientes/jsp/ambientes.css" >  
 
 
-
 <jsp:useBean id="comboCiclo" scope="request" class="java.lang.Object" />
 <jsp:useBean id="comboTramite" scope="request" class="java.lang.Object" />
 <jsp:useBean id="anio" scope="request" class="java.lang.String" />
 <jsp:useBean id="ciclo" scope="request" class="java.lang.String" />
 <jsp:useBean id="tramite" scope="request" class="java.lang.String" />
 <jsp:useBean id="descripcion" scope="request" class="java.lang.String" />
-<jsp:useBean id="numCitas" scope="request" class="java.lang.String" />
-
-
 
 <HTML>
 <head>
@@ -102,24 +98,20 @@ function verificaApostrofe(dato)
 
 <form method="post" name="formcriterios" id="formcriterios" action="sswcitas" enctype="multipart/form-data"  >
 
-<input type="hidden" name="accion" value="InsertarDatosCitas"> 
+<input type="hidden" name="accion" value="InsertarActivacionDJF"> 
 <input type="hidden" name="anio" value="<%=anio%>">
 <input type="hidden" name="ciclo" value="<%=ciclo%>">
 <input type="hidden" name="tramite" value="<%=tramite%>">
-<input type="hidden" name="numCitas" value="<%=numCitas%>">
 <input type="hidden" name="descripcion"value="<%=descripcion%>">
-
-   
+  
 </form>
-
-
 
 </table>
 
 
-<!-- Registrar Citas -->
+<!-- Activar DJF -->
 
-<% String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=RegistrarCitas";  %>
+<% String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=ActivarDJF";  %>
 
 <table align="right" border-width="0" width="20%" >
 <tr>
@@ -145,7 +137,7 @@ function verificaApostrofe(dato)
 <table align="right" border-width="0" width="20%" class = "pucpTablaTitulo">
 <tr><td>
 <font class="pucpTitulo" >
-     Registrar citas a los nuevos alumnos ingresantes 
+     Activar declaración jurada familiar para los alumnos ingresantes
 </font></td>
 <td></td>
 </tr>
@@ -157,7 +149,7 @@ function verificaApostrofe(dato)
 <%-- Estado del registro --%>
 
 <table class = "pucpTablaSubTitulo" width="100%">
-<tr><td><font class = "pucpSubTitulo" > Estado del registro </font></td> </tr>
+<tr><td><font class = "pucpSubTitulo" > Estado de la activacion </font></td> </tr>
 </table>
 
 <br>
@@ -166,7 +158,7 @@ function verificaApostrofe(dato)
 <table width="30%" align="center">
 
   <tr>
-    <td width="80%"> Registro de citas exitoso </td>
+    <td width="80%"> La activacion de la declaracion jugarada familiar se dio correctamente </td>
   </tr>
 
   <tr>
@@ -176,12 +168,6 @@ function verificaApostrofe(dato)
   <tr>
     <td width="80%"> Tramite: <%=descripcion%> </td>
   </tr>
-
-  <tr>
-    <td width="80%"> Numero de Citas:<%=numCitas%> </td>
-  </tr>
-
-
 
 
 </table>

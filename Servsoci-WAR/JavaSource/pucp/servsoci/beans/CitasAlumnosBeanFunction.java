@@ -62,121 +62,8 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 	}
 	
 	
-	/* Lectura de archivo excel con extension .xlsx */
-	public boolean cargarCitasArchXLSX(InputStream contenido, PucpMultipartRequest multiRequest) throws Exception, SQLException {
-		
-		XSSFWorkbook  wbook = null;
-        int fila = 0, columna = 0;
-        boolean finTabla=false;
-		boolean insertar=false;
-        
-        String indice = "";
-        String dia = "";
-        String hora = "";
-        String codigo = "";
-        String nombre = "";
-        String lugar = "";                     
-    
-        
-        try {        
-
-			wbook = new XSSFWorkbook (contenido);
-	        /* Obtenemos la primera hoja del archivo Excel */
-			XSSFSheet  sheet = wbook.getSheetAt(0);	        
-	        /* Obtenemos la cabecera ubicada en primera fila de la hoja obtenida */
-	        XSSFRow row = sheet.getRow(0);
-	        
-	        /* Si el archivo excel no contiene datos */
-	        if (row == null) return false; 
-        
-	        /* Numero de filas en la hoja */
-	        int nTotalFilas = sheet.getPhysicalNumberOfRows();
-
-	        
-			   String sAnio = multiRequest.getParameter("anio");
-			   String sCiclo = multiRequest.getParameter("ciclo");
-			   String sTramite = multiRequest.getParameter("tramite");
-	        
-	        
-	        
-	        for (int r = 1; r < nTotalFilas; r++){	 
-	        	
-	        	//if (r > 1) throw new PucpException("r = " + r);
-	        	
-	        	/* Guardamos cada fila */
-	        	row = sheet.getRow(r);
-	        	
-	        	/* Verificamos que no sea nula la fila */
-	        	if (row == null) break;
-	        		
-	        	/* Obtenemos la primera celda de la fila */
-	        	int nPrimeraCelda = row.getFirstCellNum();
-	        	
-	        	/* Obtenemos la ultima celda de la fila */
-	        	int nUltimaCelda = row.getLastCellNum();
-	        	
-	        	/* Verificamos que la cantidad de columnas sea correcta */
-	        	int nColumnas = nUltimaCelda-nPrimeraCelda;
-	        	
-	        	/* Recorremos cada celda */
-	            XSSFCell cell;
-	        	
-	        	for (int i = nPrimeraCelda; i < nUltimaCelda; i++){	        			        	
-	        		
-	        		cell = row.getCell((short)i);	        
-	        		
-	        		fila = r;
-	        		columna = i;
-
-	        		if ((cell != null) && (i <= 5)){	        			
-	        			
-	        			switch(i){
-	        				case 0: indice = obtenValorStringCeldaXSSF(cell); 
-	        						break;
-	        				case 1: dia = obtenValorStringCeldaDateXSSF(cell);
-	        						break;
-	        				case 2: hora = obtenValorStringCeldaXSSF(cell);
-	        						break;
-	        				case 3: codigo = obtenValorStringCeldaXSSF(cell);
-	        						break;
-	        				case 4: nombre = obtenValorStringCeldaXSSF(cell);
-	        						break;
-	        				case 5: lugar = obtenValorStringCeldaXSSF(cell);
-	        						break;
-	        				default: break;
-	        			}
-	        			
-	        		}	        
-	        		
-	        		if (i==5){	        				        			
-	        					        			
-	        			hora = dia + " " + hora.substring(0, 5) + ":00";
-	        			if (codigo.length() == 4)
-	        				codigo = "0000" + codigo;
-	        			
-	        			insertar = this.insertarCita(sAnio, sCiclo, sTramite, dia, hora, codigo, nombre, lugar); 	
-	        			
-	        			break;
-	        			
-	        		}
-	        		
-		        		
-	        	}	        	
-	        	    
-	            
-	        }
-	        
-        } catch (Exception e) {
-
-        	throw new PucpException(e.getMessage());
-		} 
-        
-		return true;      
-    }
 	
-
-
-
+	/* Leer archivo excel con extension xls */
 
 	public int cargarCitasArchXLS(InputStream contenido, PucpMultipartRequest multiRequest) throws Exception, SQLException {
 		
@@ -443,79 +330,13 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 		    }
 		throw exc;	
 		}
-	}	
-	
-	/* Obtener valores strings a partir de celdas de un archivo xlsx */
-	public String obtenValorStringCeldaXSSF (XSSFCell cell) throws Exception
-	{
-		String valor = null;
-		try
-		{
-			switch(cell.getCellType())
-			{	case HSSFCell.CELL_TYPE_BLANK:
-					valor = null;
-					break;
-				case HSSFCell.CELL_TYPE_STRING:
-					valor = cell.getRichStringCellValue().getString();
-					break;
-				case HSSFCell.CELL_TYPE_NUMERIC:
-					valor = String.valueOf((long)cell.getNumericCellValue());
-					break;
-				case HSSFCell.CELL_TYPE_BOOLEAN:
-					valor = Boolean.toString(cell.getBooleanCellValue());
-					break;
-				case HSSFCell.CELL_TYPE_FORMULA:
-					valor = Integer.toString((int)cell.getNumericCellValue());
-					break;				
-				default:
-					valor = "ERROR";		// Error de Valor en el Campo
-					break;
-			}
-			return valor;
-		}
-		catch (Exception exc) {
-		    if (con != null && !con.isClosed()) {
-		       try { con.rollback();
-		       } catch (Exception e) {
-		      }
-		    }
-		throw exc;	
-		}
-	}	
-	
-	public String obtenValorStringCeldaDateXSSF(XSSFCell cell) throws Exception
-	{
-
-		try
-		{
-
-			
-			 String DATE_FORMAT_NOW = "yyyy/MM/dd";
-			 Date date = new Date();
-			 SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
-			 
-			
-			date = (cell.getDateCellValue());
-			String stringDate = sdf.format(date );
-
-			return stringDate;
-		}
-		catch (Exception exc) {
-		    if (con != null && !con.isClosed()) {
-		       try { con.rollback();
-		       } catch (Exception e) {
-		      }
-		    }
-		throw exc;	
-		}
-	}
+	}		
 	
 	public String obtenValorStringCeldaDateHSSF(HSSFCell cell) throws Exception
 	{
 
 		try
 		{
-
 			
 			 String DATE_FORMAT_NOW = "yyyy/MM/dd";
 			 Date date = new Date();
@@ -580,39 +401,149 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 		}
 
 		
-	}
-	
-	
-	
-	
-	
-	/* 04/08/2016 */
-	
-	public CitasAlumnosBeanData obtenerArchivo(PucpMultipartRequest multiRequest)
-		throws Exception {
-		
-		CitasAlumnosBeanData archivoData = null;
+	}	
+
+
+	/* 11/08/2016 */
+
+	public boolean activarDJF(HttpServletRequest request) throws Exception {		
 		
 		try{
 			
-			InputStream contenidoArch = null;										
-			String extensionArch="";
-			long tamanioArch = 0;
+			String sAnio = request.getParameter("anio");
+			String sCiclo = request.getParameter("ciclo");
+			String sTramite = request.getParameter("tramite");  
 			
-			contenidoArch = multiRequest.getFileContent("archivo");
-			extensionArch = multiRequest.getFileExtension("archivo");
-			tamanioArch = multiRequest.getFileLength("archivo");		
+			/* Obtenemos el tipo grupo apartir del tramite */
+			
+			String tipoGrupo = obtenerTipoGrupo(sTramite);
 			
 			
+    		
+			return true;
+			   			
+		} catch (Exception e) {
+			throw e;
 		}
-		catch (Exception exc) {
-			con.rollback();
-			throw exc;
-		} 
-		return archivoData;
+	}
+
+
+
+	private String obtenerTipoGrupo(String tramite) throws Exception {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		   
+		String tipogrupo = "";
+		String dml = "";
+
+		
+		try{
+			
+    		rset = null;
+       		  
+    		dml = "SELECT A.TIPOGRUPO FROM SERVSOCI.TRAMPROVXTIPOGRUPO A " +
+    			  "WHERE TRAMITE = ?";   		
+    		pstmt = con.prepareStatement(dml);
+    		pstmt.setString(1, tramite);
+    	    rset=pstmt.executeQuery();
+    		
+    					
+    		
+
+    	    if (!rset.next() ){
+    	        throw new PucpException("Error en la lectura del tipo grupo" + tramite) ;
+    	    }
+    	    else{
+    	    	tipogrupo = rset.getString(1);
+    	    	throw new PucpException("Tipo Grupo = ", tipogrupo) ;
+    	    }       		
+    		
+    		
+			//return tipogrupo;
+			   			
+		} catch (Exception e) {
+			super.con.rollback();
+			throw e;
+		} finally {
+			if (rset!= null) rset.close();
+			if (pstmt!= null) pstmt.close();				 	
+		}
 		
 	}
-	
 
+
+
+	public String obtenerDescripcion(String tramite) throws Exception {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		   
+		String descripcion = "";
+		String dml = "";
+
+		
+		try{
+			
+    		rset = null;    		    		
+       		  
+    		dml = "SELECT A.DESCRIPCION FROM SERVSOCI.TRAMITE A " +
+    			  "WHERE A.TRAMITE = ?";   		
+    		pstmt = con.prepareStatement(dml);
+    		pstmt.setString(1, tramite);
+    	    rset=pstmt.executeQuery();
+    		
+    					
+    		
+
+    	    if (!rset.next() ){
+    	        throw new PucpException("Error en la lectura de la descripcion de tramite: " + tramite) ;
+    	    }
+    	    else{
+    	    	descripcion = rset.getString(1);
+    	    }       		
+    		
+    		
+			return descripcion;
+			   			
+		} catch (Exception e) {
+			super.con.rollback();
+			throw e;
+		} finally {
+			if (rset!= null) rset.close();
+			if (pstmt!= null) pstmt.close();				 	
+		}
+	}
+
+
+
+	public void eliminarCitas(String anio, String ciclo, String tramite) throws Exception {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		   
+		String dml = "";
+
+		
+		try{
+			
+    		rset = null;        		
+    		       		  
+    		dml = "DELETE FROM SERVSOCI.CITASXASIGNAR A " +
+    			  "WHERE A.CICLOANO = ? AND A.CICLO = ? AND A.TRAMITE = ?";   		
+    		pstmt = this.con.prepareStatement(dml);
+			pstmt.setString(1,anio);   
+			pstmt.setString(2,ciclo);
+			pstmt.setString(3,tramite);
+			pstmt.executeUpdate();
+
+
+			   			
+		} catch (Exception e) {
+			super.con.rollback();
+			throw e;
+		} finally {
+			if (rset!= null) rset.close();
+			if (pstmt!= null) pstmt.close();				 	
+		}
+	}
 
 }

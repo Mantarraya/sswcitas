@@ -21,6 +21,8 @@ public final class Sswcitas extends PucpHttpServlet
 	    this.acciones.put("RegistrarCitas", new AccionRegistrarCitas());
 	    this.acciones.put("InsertarDatosCitas", new AccionInsertarDatosCitas());
 	    this.acciones.put("MostrarInstrucciones", new AccionMostrarInstrucciones());
-	        
+	    this.acciones.put("ActivarDJF", new AccionActivarDJF());
+	    this.acciones.put("InsertarActivacionDJF", new AccionInsertarActivacionDJF());
+
 	  }  
 	}
