@@ -544,4 +544,164 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 		}
 	}
 
+
+
+	public void insertarAlumnoDJF(String anio, String ciclo, String tipogrupo) throws PucpException {
+		
+		ResultSet rset=null;
+		PreparedStatement pstmt=null;
+		
+		try{
+			
+			
+			String dml = " INSERT INTO SERVSOCI.ALUMNODJF (ALUMNO) " +
+						 " SELECT A.ALUMNO " +
+						 " FROM OCR.INGRESOXALUMNO A, OCR.ALUMNOXCICLO_P B " + 
+			             " WHERE A.CICLOANO = ? AND A.CICLO = ('0'||?) AND A.TIPOCICLO = '00' AND A.TIPOGRUPO IN (?) " +
+			             " AND B.ALUMNO=A.ALUMNO AND B.CICLOANO=A.CICLOANO " + 
+			             " AND B.CICLO=A.CICLO AND B.TIPOCICLO=A.TIPOCICLO " +
+			             " AND A.ALUMNO NOT IN (SELECT ALUMNO FROM SERVSOCI.ALUMNODJF) ";						
+			
+			pstmt = con.prepareStatement(dml);
+			
+			pstmt.setInt(1, Integer.parseInt(anio));
+			pstmt.setString(2, ciclo);
+			pstmt.setString(3, tipogrupo);
+			
+			pstmt.executeUpdate();
+						
+		}catch(Exception e){
+			throw new PucpException(" Error al grabar alumnos en la declaración jurada familiar: "+ e.getMessage());
+		}finally{
+			try {if(rset!=null) rset.close();} catch(Exception er){}
+			try {if(pstmt!=null) pstmt.close();} catch(Exception er){}
+		}
+		
+		
+	}
+
+
+
+	public void insertarDJF(String anio, String ciclo, String tramite,
+			String tipogrupo) throws PucpException {
+		
+		ResultSet rset=null;
+		PreparedStatement pstmt=null;
+		
+		try{
+			
+			String dml = " INSERT INTO SERVSOCI.DECLARACIONJURADAFAMILIAR (ALUMNO,CICLOANO,CICLO,TIPOCICLO,TRAMITE,FECHAAPERTURA,INDICAACTIVO) " +
+						 " SELECT A.ALUMNO,A.CICLOANO,'1','0','TB',SYSDATE,'1' " +
+						 " FROM OCR.INGRESOXALUMNO A, OCR.ALUMNOXCICLO_P B " +
+						 " WHERE A.CICLOANO = ? AND A.CICLO = ('0'||?) AND A.TIPOCICLO = '00' " +
+						 " AND A.TIPOGRUPO IN (?) AND B.ALUMNO=A.ALUMNO " +
+						 " AND B.CICLOANO=A.CICLOANO  AND B.CICLO=A.CICLO AND B.TIPOCICLO=A.TIPOCICLO " +
+						 " AND A.ALUMNO NOT IN (SELECT ALUMNO FROM SERVSOCI.DECLARACIONJURADAFAMILIAR WHERE CICLOANO = ? AND CICLO = ? AND TRAMITE = ?) ";
+			
+			pstmt = con.prepareStatement(dml);
+			
+			pstmt.setInt(1, Integer.parseInt(anio));
+			pstmt.setString(2, ciclo);
+			pstmt.setString(3, tipogrupo);
+			pstmt.setInt(4, Integer.parseInt(anio));
+			pstmt.setString(5, ciclo);
+			pstmt.setString(6, tramite);
+			
+			pstmt.executeUpdate();
+			
+		}catch(Exception e){
+			throw new PucpException(" Error al grabar en la declaración jurada familiar: "+ e.getMessage());
+		}finally{
+			try {if(rset!=null) rset.close();} catch(Exception er){}
+			try {if(pstmt!=null) pstmt.close();} catch(Exception er){}
+		}
+		
+		
+	}
+
+
+
+	public void insertarAlumnoDJFxTramitexCiclo(String anio, String ciclo,
+			String tramite) throws PucpException {
+		
+		ResultSet rset=null;
+		PreparedStatement pstmt=null;
+		
+		try{
+			
+			String dml = " INSERT INTO SERVSOCI.ALUMNODJFXTRAMITEXCICLO " + 
+						 " (ALUMNO, TRAMITE, CICLOANO, TIPOCICLO, CICLO,  FECHAINICIOPUBLICACION, FECHAFINPUBLICACION) " + 
+			             " SELECT ALUMNO, TRAMITE, CICLOANO, TIPOCICLO, CICLO,  SYSDATE FECHAINICIOPUBLICACION, SYSDATE +30 FECHAFINPUBLICACION " +
+			             " FROM SERVSOCI.DECLARACIONJURADAFAMILIAR " +
+			             " WHERE TRAMITE = ? AND CICLOANO = ? AND CICLO = ? AND TIPOCICLO = '0' " +
+			             " AND ALUMNO NOT IN (SELECT ALUMNO FROM SERVSOCI.ALUMNODJFXTRAMITEXCICLO " +
+			             " WHERE TRAMITE = ? AND CICLOANO = ? AND CICLO = ? AND TIPOCICLO = '0') ";
+			
+			
+			
+			pstmt = con.prepareStatement(dml);
+			
+
+			pstmt.setString(1, tramite);
+			pstmt.setInt(2, Integer.parseInt(anio));
+			pstmt.setString(3, ciclo);
+			pstmt.setString(4, tramite);
+			pstmt.setInt(5, Integer.parseInt(anio));
+			pstmt.setString(6, ciclo);
+			
+			pstmt.executeUpdate();
+			
+		}catch(Exception e){
+			throw new PucpException(" Error al grabar en la declaración jurada familiar: "+ e.getMessage());
+		}finally{
+			try {if(rset!=null) rset.close();} catch(Exception er){}
+			try {if(pstmt!=null) pstmt.close();} catch(Exception er){}
+		}		
+		
+		
+		
+		
+	}
+
+
+
+	public void insertarEstudiosxAlumnoDJF(String anio, String ciclo,
+			String tramite) throws PucpException {
+		
+
+		ResultSet rset=null;
+		PreparedStatement pstmt=null;
+		
+		try{
+			
+			String dml = " INSERT INTO SERVSOCI.ESTESCODPERDJF " +
+			             " SELECT A.CODIGO,A.ANOING,A.IDENCOLEGIO,B.TIPOCOLEGIO,A.COLMODAL,A.COLEGIO,A.ANOFIN,A.INDPRISEC, " +
+			             " A.ULTIMOANO,A.DESCRICOLEGIO,E.DESCRIPCION, " +
+			             " F.DESCRIPCION,G.DESCRIPCION,C.RESIPAIS,NULL " + 
+			             " FROM GENERAL.ESTESCODPER A, GENERAL.COLEGIO B, " +
+			             " GENERAL.PERSONA C, GENERAL.PAIS D, GENERAL.DEPARTPAIS E, GENERAL.PROVIPAIS F, " +
+			             " GENERAL.UBIGEO G, SERVSOCI.DECLARACIONJURADAFAMILIAR H " +
+			             " WHERE B.COLEGIO=A.COLEGIO AND C.CODIGO=A.COLEGIO " + 
+			             " AND D.PAIS=C.RESIPAIS AND E.DEPARTPAIS=C.RESIDEPART AND F.DEPARTPAIS=C.RESIDEPART AND " +
+			             " F.PROVIPAIS=C.RESIPROVI AND G.DEPARTPAIS=C.RESIDEPART AND G.PROVIPAIS=C.RESIPROVI " +
+			             " AND G.DISTRITO=C.RESIDISTRITO AND H.TRAMITE = ? AND H.ALUMNO=A.CODIGO " +
+			             " AND H.CICLOANO = ? AND H.CICLO = ? AND A.CODIGO NOT IN (SELECT ALUMNO FROM SERVSOCI.ESTESCODPERDJF) ";
+						
+			pstmt = con.prepareStatement(dml);
+
+			pstmt.setString(1, tramite);
+			pstmt.setInt(2, Integer.parseInt(anio));
+			pstmt.setString(3, ciclo);
+			
+			pstmt.executeUpdate();
+			
+		}catch(Exception e){
+			throw new PucpException(" Error al grabar en la declaración jurada familiar: "+ e.getMessage());
+		}finally{
+			try {if(rset!=null) rset.close();} catch(Exception er){}
+			try {if(pstmt!=null) pstmt.close();} catch(Exception er){}
+		}		
+				
+	}
+
 }

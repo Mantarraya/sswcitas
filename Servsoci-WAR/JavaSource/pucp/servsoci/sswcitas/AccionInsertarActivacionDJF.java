@@ -37,14 +37,28 @@ public class AccionInsertarActivacionDJF extends PucpAccion{
 	    	
 	    	CitasAlumnosBeanFunction ActivacionDJF = new CitasAlumnosBeanFunction();
 	    	ActivacionDJF.setCon(connection);
+
 	    	
+	    	/* Descripcion del tramite */
 	    	String descripcion = ActivacionDJF.obtenerDescripcion(tramite);
     		request.setAttribute("descripcion", descripcion);
     		
+    		
+    		/* Tipo grupo del tramite */
     		String tipogrupo = ActivacionDJF.obtenerTipoGrupo(tramite);
     		request.setAttribute("tipogrupo", tipogrupo);
-    		    		
-			
+    		
+    		
+    		/* Procedemos a activar la declaracion jurada familiar */
+    		    	
+    		ActivacionDJF.insertarAlumnoDJF(anio, ciclo, tipogrupo);
+    		
+    		ActivacionDJF.insertarDJF(anio, ciclo, tramite, tipogrupo);
+    		
+    		ActivacionDJF.insertarAlumnoDJFxTramitexCiclo(anio, ciclo, tramite);
+    		
+    		ActivacionDJF.insertarEstudiosxAlumnoDJF(anio, ciclo, tramite);    		    		
+    					
 			pucpForward(request, response, "/pucp/servsoci/sswcitas/jsp/AccionInsertarActivacionDJF.jsp");			
 
 		} catch (Exception exc) {
