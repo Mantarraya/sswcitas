@@ -115,7 +115,7 @@ function verificaApostrofe(dato)
 
 <table align="right" border-width="0" width="20%" >
 <tr>
-   <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="<%=response.encodeURL(urlCitas)%>" onMouseOver="self.status = ''; return true">Registrar citas</a></td>   
+   <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="<%=response.encodeURL(urlCitas)%>" onMouseOver="self.status = ''; return true">Activar declaración jurada familiar</a></td>   
 </tr>
 </table> 
 

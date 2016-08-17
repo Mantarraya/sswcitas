@@ -1,6 +1,7 @@
 package pucp.servsoci.beans;
 
 import java.io.InputStream;
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -668,7 +669,6 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 	public void insertarEstudiosxAlumnoDJF(String anio, String ciclo,
 			String tramite) throws PucpException {
 		
-
 		ResultSet rset=null;
 		PreparedStatement pstmt=null;
 		
@@ -696,12 +696,38 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 			pstmt.executeUpdate();
 			
 		}catch(Exception e){
-			throw new PucpException(" Error al grabar en la declaración jurada familiar: "+ e.getMessage());
+			throw new PucpException(" Error al grabar en los estudios por alumno: "+ e.getMessage());
 		}finally{
 			try {if(rset!=null) rset.close();} catch(Exception er){}
 			try {if(pstmt!=null) pstmt.close();} catch(Exception er){}
 		}		
 				
+	}
+
+
+
+	public void asignarCitas(String anio, String ciclo, String tramite) throws PucpException {
+		
+		ResultSet rset=null;
+		PreparedStatement pstmt=null;
+		
+		try{
+			
+			CallableStatement ocs = super.con.prepareCall("{(call servsoci.pq_sswcitas.p_AsignarCitas(?, ?, ?)}");
+		    ocs.setInt(1, Integer.parseInt(anio));
+		    ocs.setString(2, ciclo);
+		    ocs.setString(3, tramite); 
+		      
+		    ocs.execute();      
+		    ocs.close();
+			
+		}catch(Exception e){
+			throw new PucpException(" Error al grabar en asignacion de citas: "+ e.getMessage());
+		}finally{
+			try {if(rset!=null) rset.close();} catch(Exception er){}
+			try {if(pstmt!=null) pstmt.close();} catch(Exception er){}
+		}				
+		
 	}
 
 }

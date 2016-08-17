@@ -1,4 +1,3 @@
-
 /* Registrar Citas*/
 
 function boton_Registrar_Citas(){
@@ -27,13 +26,9 @@ function boton_Registrar_Citas(){
 	
 	/* Descripcion */
 	
-	//cadena=document.formcriterios.comboTramite.value;
-	
 	cadena=document.formcriterios.comboTramite.item(4).value;
 	
-	document.formcriterios.descripcion.value=cadena;
-	//String searchString = select.getFirstSelectedOption().getText();
-	
+	document.formcriterios.descripcion.value=cadena;	
 	
 	document.formcriterios.encoding = "multipart/form-data";
 		
@@ -78,17 +73,37 @@ function boton_Activar_DJF(){
 		return;		  
 	}
 	
-	
-	
     document.formcriterios.accion.value = "InsertarActivacionDJF";
     document.formcriterios.submit();
 	
 }
 
+/* Asignar citas */
 
-
-
-
-
-
-
+function boton_Asignar_Citas(){
+	
+	/* Combo Ciclo */
+	var cadena=document.formcriterios.comboCiclo.options[document.formcriterios.comboCiclo.selectedIndex].value;
+	document.formcriterios.anio.value=cadena.substr(0,4);
+	document.formcriterios.ciclo.value=cadena.substr(5,1);
+	
+	if (cadena=='' ) {
+		alert('Seleccione un ciclo de los mostrados para continuar con el proceso');
+		return;		  
+	}
+	
+	/* Combo Tramite */
+	
+	cadena=document.formcriterios.comboTramite.options[document.formcriterios.comboTramite.selectedIndex].value;
+	
+	document.formcriterios.tramite.value=cadena;		
+	
+	if (cadena=='' ) {
+		alert('Seleccione un tramite de los mostrados para continuar con el proceso');
+		return;		  
+	}
+	
+    document.formcriterios.accion.value = "InsertarAsignacionCitas";
+    document.formcriterios.submit();
+    
+}

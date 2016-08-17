@@ -59,6 +59,7 @@ public class AccionInsertarActivacionDJF extends PucpAccion{
     		
     		ActivacionDJF.insertarEstudiosxAlumnoDJF(anio, ciclo, tramite);    		    		
     					
+    		
 			pucpForward(request, response, "/pucp/servsoci/sswcitas/jsp/AccionInsertarActivacionDJF.jsp");			
 
 		} catch (Exception exc) {

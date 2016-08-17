@@ -56,7 +56,7 @@ function VerificaCriterios()
 function contieneApostrofes(dato)
 {
 	if (verificaApostrofe(dato))
-		alert("La búsqueda no debe tener comillas simples o dobles.");
+		alert("La bÃºsqueda no debe tener comillas simples o dobles.");
 }
    
 function verificaApostrofe(dato)
@@ -66,7 +66,7 @@ function verificaApostrofe(dato)
 	var cadena = "";
     for(i=0;i<val.length;i++)
     {
-    	if ((val.charAt(i)== "'") || (val.charAt(i)== "´") || (val.charAt(i)== "\""))
+    	if ((val.charAt(i)== "'") || (val.charAt(i)== "Â´") || (val.charAt(i)== "\""))
         {
         	cadena = val.substr(0, i);
 			cadena = cadena + val.substr(i+1);
@@ -208,8 +208,8 @@ function verificaApostrofe(dato)
     <td>
 
   <font class="pucpEtiq"><strong>Importante</strong><br>
-  La información ofrecida puede ser utilizada para comunicaciones individuales y con fines académicos. 
-  La Pontificia Universidad Católica del Perú NO AUTORIZA su uso para confeccionar bases de datos o generar envíos masivos (SPAM).
+  La informaciÃ³n ofrecida puede ser utilizada para comunicaciones individuales y con fines acadÃ©micos. 
+  La Pontificia Universidad CatÃ³lica del PerÃº NO AUTORIZA su uso para confeccionar bases de datos o generar envÃ­os masivos (SPAM).
   </font>
     </td>
   </tr>
