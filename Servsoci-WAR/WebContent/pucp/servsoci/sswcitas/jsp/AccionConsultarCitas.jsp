@@ -99,7 +99,7 @@ function verificaApostrofe(dato)
 
 <table border="0" width="100%">
 <tr><td width="100%" colspan="3" align="right">
-<a href= "javascript:history.back();" >
+<a href=  "/pucp/servsoci/sswcitas/sswcitas?accion=MostrarInstrucciones" >
 <img src="/pucp/lib/images/b_regresar.gif" class="pucpBoton" alt="">
 </a>
 
@@ -121,7 +121,19 @@ function verificaApostrofe(dato)
 <table class = "pucpTablaSubTitulo" width="100%">
 <tr><td><font class = "pucpSubTitulo" > Criterios </font></td> </tr>
 </table>
+
+<table width="100%">
+
+<tr>
+    <td>   Seleccione un ciclo y un trámite para proceder con la consulta de citas </td>    
+  </tr>
+
+</table>
+
+
+
 <br>
+
 
 <%-- Seleccionar Ciclo (anio - numero ciclo)   --%>
 
@@ -181,7 +193,7 @@ function verificaApostrofe(dato)
 <a href=  "javascript:boton_Consultar_Citas();" >
 <img src="/pucp/lib/images/b_consultar.gif" class="pucpBoton" alt="">
 </a>
-<a href= "javascript:history.back();" >
+<a href=  "/pucp/servsoci/sswcitas/sswcitas?accion=MostrarInstrucciones" >
 <img src="/pucp/lib/images/b_regresar.gif" class="pucpBoton" alt="">
 </a>
 

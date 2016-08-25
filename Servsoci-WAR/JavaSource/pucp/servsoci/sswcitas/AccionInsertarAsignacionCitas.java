@@ -50,10 +50,10 @@ public class AccionInsertarAsignacionCitas extends PucpAccion{
     		
     		
     		/* Procedemos a activar la declaracion jurada familiar */
-    		    	
+    		    	    		
     		AsignacionCitas.asignarCitas(anio, ciclo, tramite);    				    
     		
-			pucpForward(request, response, "/pucp/servsoci/sswcitas/jsp/AccionInsertarActivacionDJF.jsp");			
+			pucpForward(request, response, "/pucp/servsoci/sswcitas/jsp/AccionInsertarAsignacionCitas.jsp");			
 
 		} catch (Exception exc) {
 			if (connection != null && !connection.isClosed()) {

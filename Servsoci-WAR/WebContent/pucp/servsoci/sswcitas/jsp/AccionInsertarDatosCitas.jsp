@@ -64,7 +64,7 @@ function VerificaCriterios()
 function contieneApostrofes(dato)
 {
   if (verificaApostrofe(dato))
-    alert("La bÃºsqueda no debe tener comillas simples o dobles.");
+    alert("La búsqueda no debe tener comillas simples o dobles.");
 }
    
 function verificaApostrofe(dato)
@@ -74,7 +74,7 @@ function verificaApostrofe(dato)
   var cadena = "";
     for(i=0;i<val.length;i++)
     {
-      if ((val.charAt(i)== "'") || (val.charAt(i)== "Â´") || (val.charAt(i)== "\""))
+      if ((val.charAt(i)== "'") || (val.charAt(i)== "´") || (val.charAt(i)== "\""))
         {
           cadena = val.substr(0, i);
       cadena = cadena + val.substr(i+1);
@@ -145,7 +145,7 @@ function verificaApostrofe(dato)
 <table align="right" border-width="0" width="20%" class = "pucpTablaTitulo">
 <tr><td>
 <font class="pucpTitulo" >
-     Registrar citas a los nuevos alumnos ingresantes 
+     Registrar horario de citas de las asistentas sociales
 </font></td>
 <td></td>
 </tr>
@@ -163,32 +163,36 @@ function verificaApostrofe(dato)
 <br>
 
 
-<table width="30%" align="center">
+
+<table width="40%" align="center">  
+
+<tr>
+    <td > La asignación del horario de citas fue registrada </td>
+  </tr>
+
+  </table>>
+
+
+<table width="40%" align="center">  
 
   <tr>
-    <td width="80%"> Registro de citas exitoso </td>
+    <td > <font color="6798a6">Ciclo </font>  </td>
+    <td> <%=anio%>-<%=ciclo%> </td>
   </tr>
 
   <tr>
-    <td width="80%"> Ciclo: <%=anio%>-<%=ciclo%> </td>
+    <td> <font color="6798a6">Tramite </font>  </td>
+    <td > <%=descripcion%></td>
   </tr>
 
   <tr>
-    <td width="80%"> Tramite: <%=descripcion%> </td>
+    <td> <font color="6798a6">Numero de citas registradas </font>  </td>
+    <td > <%=numCitas%> </td>
   </tr>
-
-  <tr>
-    <td width="80%"> Numero de Citas:<%=numCitas%> </td>
-  </tr>
-
-
-
 
 </table>
 
-
  <br>
-
 
 <!--  Boton Finalizar -->
 <table border="0" width="100%">
@@ -198,9 +202,7 @@ function verificaApostrofe(dato)
 <img src="/pucp/lib/images/b_finalizar.gif" class="pucpBoton" alt="">
 </a>
 
-
 </table>
-
 
 <br>
 <br>
@@ -211,15 +213,12 @@ function verificaApostrofe(dato)
       <td>
 
   <font class="pucpEtiq"><strong>Importante</strong><br>
-  La informaciÃ³n ofrecida puede ser utilizada para comunicaciones individuales y con fines acadÃ©micos. 
-  La Pontificia Universidad CatÃ³lica del PerÃº NO AUTORIZA su uso para confeccionar bases de datos o generar envÃ­os masivos (SPAM).
+  La información ofrecida puede ser utilizada para comunicaciones individuales y con fines académicos. 
+  La Pontificia Universidad Católica del Perú NO AUTORIZA su uso para confeccionar bases de datos o generar envíos masivos (SPAM).
   </font>
     </td>
   </tr>
 </table> 
-
-
-
 
 
 <jsp:include page="/pucp/lib/jsp/pucppie.jsp" flush="true"/>

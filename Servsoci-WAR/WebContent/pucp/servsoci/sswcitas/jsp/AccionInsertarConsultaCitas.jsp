@@ -108,24 +108,32 @@ function verificaApostrofe(dato)
   
 </form>
 
-</table>
+
 
 
 <!-- Activar DJF -->
 
-<% String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=ActivarDJF";  %>
+<% String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=ConsultarCitas";  %>
 
 <table align="right" border-width="0" width="20%" >
 <tr>
-   <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="<%=response.encodeURL(urlCitas)%>" onMouseOver="self.status = ''; return true">Activar declaración jurada familiar</a></td>   
+   <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="<%=response.encodeURL(urlCitas)%>" onMouseOver="self.status = ''; return true">Consultar citas</a></td>   
 </tr>
 </table> 
 
 
-<!--  Boton Finalizar -->
+<!--  Boton Exportar - Boton Regresar - Boton Finalizar -->
 
 <table border="0" width="100%">
 <tr><td width="100%" colspan="3" align="right">
+
+<a href=  "/pucp/servsoci/sswcitas/sswcitas?accion=" >
+<img src="/pucp/lib/images/b_exportar.gif" class="pucpBoton" alt="">
+</a>
+
+<a href=  "/pucp/servsoci/sswcitas/sswcitas?accion=ConsultarCitas" >
+<img src="/pucp/lib/images/b_regresar.gif" class="pucpBoton" alt="">
+</a>
 
 <a href=  "/pucp/servsoci/sswcitas/sswcitas?accion=MostrarInstrucciones" >
 <img src="/pucp/lib/images/b_finalizar.gif" class="pucpBoton" alt="">
@@ -140,16 +148,54 @@ function verificaApostrofe(dato)
 <tr><td>
 <font class="pucpTitulo" >
     Consulta de citas asignadas de los alumnos
-<td></td>
-</tr>
+</td>
+
 </table>
+
+<table>
+</tr>
+
+<tr>
+    <td>  Verifique que cada alumno tenga programado una cita asignada con una asistenta social antes de exportar</td>    
+  </tr>
+
+
+</table>
+
+<br>
+
+
+ 
+<table width="80%" align="left">
+
+ 
+
+
+  <tr>
+    <td > <font color="6798a6">Ciclo </font>  </td>
+    <td> <%=anio%>-<%=ciclo%> </td>
+  </tr>
+
+  <tr>
+    <td> <font color="6798a6">Tramite </font>  </td>
+    <td > <%=descripcion%></td>
+  </tr>
+
+  <tr>
+    <td> <font color="6798a6">Ordenado por </font>  </td>
+    <td > Nombre del alumno</td>
+  </tr>
+
+</table>
+
+
+
+<br>
+
 <br>
 <br>
-
-
-
-
-
+<br>
+<br>
 
 
 
@@ -167,6 +213,7 @@ function verificaApostrofe(dato)
 <% } else { %>
 
 <table class = "pucpTablaSubTitulo"  width="100%">
+
 <tr><td><font class = "pucpSubTitulo">Resultados de la búsqueda (<%=nVectorResultadosSize%> ocurrencias) </font></td> </tr>
 </table>
 
@@ -214,10 +261,42 @@ function verificaApostrofe(dato)
 				  <td align="left" <%=color%>><%=BusquedaData.getApPaterno() %></td>
 				  <td align="left" <%=color%>><%=BusquedaData.getApMaterno() %></td>
 				  <td align="left" <%=color%>><%=BusquedaData.getNombres() %></td>
-				  <td align="left" <%=color%>><%=BusquedaData.getHoraCita() %></td>
-				  <td align="left" <%=color%>><%=BusquedaData.getFechaCita() %></td>
-				  <td align="left" <%=color%>><%=BusquedaData.getLugarCita() %></td>
-				  <td align="left" <%=color%>><%=BusquedaData.getCodigoAsistenta() %></td>
+
+				  <% 
+				  String horaCita = BusquedaData.getHoraCita();
+				  if (horaCita == null) horaCita = "";
+				   %>
+
+				   <% 
+				  String fechaCita = BusquedaData.getFechaCita();
+				  if (fechaCita == null) fechaCita = "";
+				   %>
+
+				   <% 
+				  String lugarCita = BusquedaData.getLugarCita();
+				  if (lugarCita == null) lugarCita = "";
+				   %>
+
+
+				  <% 
+				  String codigoAsistenta = BusquedaData.getCodigoAsistenta();
+				  if (codigoAsistenta == null) codigoAsistenta = "";
+				   %>
+
+
+				    <% 
+
+				  String nombreAsistenta = BusquedaData.getNombreAsistenta();
+				  if (nombreAsistenta.trim() == null) nombreAsistenta = "";
+
+				   %>
+
+				  <td align="left" <%=color%>><%=horaCita%></td>
+				  <td align="left" <%=color%>><%=fechaCita %></td>
+				  <td align="left" <%=color%>><%=lugarCita %></td>
+				  <td align="left" <%=color%>><%=codigoAsistenta %></td>
+				  <td align="left" <%=color%>><%=nombreAsistenta %></td>
+
 					
 				</tr>
 		<%		
@@ -229,28 +308,6 @@ function verificaApostrofe(dato)
 <br>
 
 <% }  %>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
  <br>
@@ -265,7 +322,9 @@ function verificaApostrofe(dato)
 </a>
 
 
+
 </table>
+
 
 
 <br>
