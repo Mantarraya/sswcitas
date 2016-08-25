@@ -33,8 +33,7 @@
 <script type="text/javascript" src="/pucp/lib/js/jquery/jquery-1.9.1.min.js"></script>
 <script src="/pucp/lib/framework/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-
-</head> 
+	</head> 
 
 <BODY bgcolor="#ffffff" topmargin="0" marginwidth="0" marginheight="0" >
  
@@ -61,9 +60,9 @@
 <input type="hidden" name="indicamanualdjf" value="<%= request.getParameter("indicamanualdjf") %>">
 <input type="hidden" name="naceptodjf" value="<%= request.getParameter("naceptodjf") %>">
 <input type="hidden" name="esAlumno" value="<%= esAlumno%>">
+<input type="hidden" name="manual" value="1">
 <br>
 <br>
-
 <%--  Juan Tomairo - Julio 2016 --%>
 <% 
 String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=MostrarInstrucciones"; 
@@ -117,20 +116,41 @@ if(!esAlumno.equals("1")){ %>
 	<td width="20%" align="center"><img src="/pucp/lib/images/i_datos.gif"></a></td>
 	<td width="80%" ><a href="javascript:MuestraPanelCrearDeclaracion();" class="pucpLink">1. Ingreso a la Declaración Jurada Familiar</a></td>
 </tr>
+
 <tr>
 	<td width="20%" align="center"><img width="32" heigh="35" src="/pucp/lib/images/i_pdf.gif"></a></td>
 	<td width="80%" ><a href="javascript:descargarManualDeInstrucciones();" class="pucpLink">2. Manual de Instrucciones de la DJF</a></td>
 </tr>
+
+<%--
 <tr>
 	<td width="20%" align="center"><img src="/pucp/lib/images/i_datos1.gif"></a></td>
 	<td width="80%" ><a href="javascript:BuscarDocumentoDJF();" class="pucpLink">3. Documentos requeridos por la asistenta social</a></td>
 </tr>
+--%>
 <tr>
 	<td width="20%" align="center"><img src="/pucp/lib/images/i_preguntas.gif"></a></td>
-	<td width="80%" ><a href="javascript:abrirPreguntasFrecuentes();" class="pucpLink">4. Preguntas frecuentes</a></td>	
+	<td width="80%" ><a href="javascript:abrirPreguntasFrecuentes();" class="pucpLink">3. Preguntas frecuentes</a></td>	
 </tr>
+<tr>
+	<td width="20%" align="center"><img src="/pucp/lib/images/i_preguntas.gif"></a></td>
+	<td width="80%" ><a href="javascript:descargarManualDJFPorTipo();" class="pucpLink">4. Formato de aceptaci&oacute;n de escala 5</a></td>	
+</tr>
+
 </table>
 <br>
+<br>
+	<table class="PucpTablaInfo" width="80%" align="center">
+        <tr>
+        	<td valign=top><img src="/pucp/lib/images/i_info.gif"></td>
+            <td class="pucpInfo">
+            	<p><b>NOTA: </b>Para la cita que te programe la Oficina de Apoyo y Servicio Social deberás traer los documentos que sustenten la información que hayas registrado en <b>1. Ingreso a la Declaración Jurada Familiar.</b></p>
+            	 <p>Para conocer los documentos a traer debes acceder al Simulador de Documentos para la Evaluación Socioeconómica digitando, en una nueva pestaña u otro navegador, el siguiente enlace:<b>  zonaescolar.pucp.edu.pe/simuladordedocumentos</b></p>		
+			</td>
+        </tr>
+	</table>
+<br>		
+
 <br>
 <table align="center">
 <tr>

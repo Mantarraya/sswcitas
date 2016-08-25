@@ -1,4 +1,5 @@
 package pucp.servsoci.beans;
+// Bean Function de citas
 
 import java.io.InputStream;
 import java.sql.CallableStatement;
@@ -7,19 +8,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 
+/* XLS FILES */
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-
-// XLSX FILES
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import pucp.lib.PucpBeanFunction;
 import pucp.lib.componentes.PucpListaVector;
@@ -44,25 +41,23 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 		
 	}
 	
-
-
+	
+	
 	public PucpListaVector LlenaComboTramites() throws Exception {
 		
 		try{
-			
+						
 			/* Obtenemos el combo de tramites respecto a servicio social */
 			
 			PucpListaVector comboTramite = new PucpListaVector();
 			comboTramite.setCon(this.getCon()); /* Conexion */
-			comboTramite.poblar("SELECT DISTINCT A.TRAMITE, A.DESCRIPCION FROM SERVSOCI.TRAMITE A ORDER BY 2");			
+			comboTramite.poblar("SELECT DISTINCT A.TRAMITE, A.DESCRIPCION FROM SERVSOCI.TRAMITE A WHERE A.INDICTIPTRAM = '1' ORDER BY 2");			
 			return comboTramite;
 		}catch (Exception exc) {
 			throw exc;
 		}
 		
-	}
-	
-	
+	}	
 	
 	/* Leer archivo excel con extension xls */
 
@@ -419,8 +414,6 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 			
 			String tipoGrupo = obtenerTipoGrupo(sTramite);
 			
-			
-    		
 			return true;
 			   			
 		} catch (Exception e) {
@@ -452,7 +445,7 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
     		
 
     	    if (!rset.next() ){
-    	        throw new PucpException("Error en la lectura del tipogrupo de tramite: " + tramite) ;
+    	        throw new PucpException("Tramite no encontrado del tipo de ingreso seleccionado") ;
     	    }
     	    else{
     	    	tipogrupo = rset.getString(1);
@@ -730,4 +723,68 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 		
 	}
 
+	
+	public Vector consultarCitasAlumnos(String v_anio, String v_ciclo, String v_tramite)
+	throws SQLException, Exception {
+		
+
+		Vector vAlumnos = new Vector();
+		PreparedStatement pstmt=null;
+		ResultSet rset=null;
+		String query="";
+		
+		try {
+			
+			
+			query =
+		        " select a.alumno, b.apePaterno, b.apeMaterno, b.nombres, horacita, TO_CHAR(fechacita, 'dd/mm/yyyy'), lugarcita, asistenta , (g.apepaterno || ' ' ||  g.apematerno || ' ' || g.nombres) " + 
+		        " from servsoci.alumnodjf a, general.personatural b, servsoci.declaracionjuradafamiliar c, ocr.alumnoxciclo_p d, general.facultad e, ocr.especialidad f, general.personatural g " +
+		        " where b.codigo = a.alumno " + 
+		        " and c.alumno = a.alumno and c.cicloano  = ? and c.ciclo = ? and c.tipociclo = '0' and c.tramite = ? " +
+		        " and d.alumno = c.alumno and d.cicloano = c.cicloano and d.ciclo = '0'||c.ciclo and d.tipociclo = '00' " + 
+		        " and e.facultad = d.facultad and f.rama = d.rama and f.especialidad = d.especialidad " +
+		        "  and g.codigo (+)= a.asistenta " +
+		        " order by B.APEPATERNO, B.APEMATERNO, B.NOMBRES ";
+			
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, Integer.parseInt(v_anio));
+			pstmt.setString(2, v_ciclo);
+			pstmt.setString(3, v_tramite);
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()){
+				
+				ConsultaCitasBeanData citasBeanData = new ConsultaCitasBeanData();
+				
+				citasBeanData.setCodigoAlumno(rset.getString(1));
+				citasBeanData.setApPaterno(rset.getString(2));
+				citasBeanData.setApMaterno(rset.getString(3));
+				citasBeanData.setNombres(rset.getString(4));
+				citasBeanData.setHoraCita(rset.getString(5));
+				citasBeanData.setFechaCita(rset.getString(6));
+				citasBeanData.setLugarCita(rset.getString(7));
+				citasBeanData.setCodigoAsistenta(rset.getString(8));
+				citasBeanData.setNombreAsistenta(rset.getString(9));
+				
+				vAlumnos.add(citasBeanData);
+				
+			}
+			
+		} catch (Exception exc) {
+			con.rollback();
+			throw exc;
+		} finally {
+			if (rset!= null) rset.close();
+			if (pstmt!= null) pstmt.close();				 	
+		}
+		return vAlumnos;
+					
+			
+		}
+
+	
 }
+
+
