@@ -93,7 +93,7 @@ public class AccionInsertarDatosCitas extends PucpAccion{
 			
 			if ((extension == null) || (extension.equals("")) || (!extension.equalsIgnoreCase("xls")) || (!extension.equalsIgnoreCase("xls")))
 		      {
-		        throw new PucpException("OcurriÃ³ un error al cargar el archivo excel");
+		        throw new PucpException("Ocurrió un error al cargar el archivo excel");
 		      }
 
 		      CitasAlumnosBeanFunction CitasExcel = new CitasAlumnosBeanFunction();
@@ -101,7 +101,7 @@ public class AccionInsertarDatosCitas extends PucpAccion{
 		      boolean cargoCitasServSoci = CitasExcel.cargarCitas(contenido, anio, ciclo, tramite);
 		      
 		      if (!cargoCitasServSoci) {
-		        throw new PucpException("OcurriÃ³ un error al cargar el archivo excel");
+		        throw new PucpException("Ocurrió un error al cargar el archivo excel");
 		      }
 	    	   				
 		      */

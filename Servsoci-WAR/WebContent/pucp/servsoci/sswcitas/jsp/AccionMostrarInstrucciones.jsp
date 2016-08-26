@@ -143,7 +143,7 @@ String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=RegistrarCitas";
    <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="/pucp/servsoci/sswcitas/sswcitas?accion=AsignarCitas" 
        onMouseOver="self.status = ''; return true">Asignar citas</a></td> 
 
-   <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="/pucp/servsoci/sswcitas/sswcitas?accion=ConsultarCitas" 
+   <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="/pucp/servsoci/sswcitas/sswcitas?accion=BusquedaCitas" 
        onMouseOver="self.status = ''; return true">Consultar citas</a></td>             
 
 </tr>
@@ -201,7 +201,7 @@ String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=RegistrarCitas";
 </tr>
 <tr>
 	<td width="20%" align="center"><img src="/pucp/lib/images/i_xls.gif"  width="35%" ></a></td>
-	<td width="80%" ><a href="/pucp/servsoci/sswcitas/sswcitas?accion=ConsultarCitas" class="pucpLink">4. Consultar citas asignadas</a></td>	
+	<td width="80%" ><a href="/pucp/servsoci/sswcitas/sswcitas?accion=BusquedaCitas" class="pucpLink">4. Consultar citas asignadas</a></td>	
 </tr>
 </table>
 

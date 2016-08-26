@@ -23,6 +23,28 @@ import pucp.lib.componentes.PucpListaVector;
 import pucp.lib.exception.PucpException;
 import pucp.lib.util.PucpMultipartRequest;
 
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Date;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFDataFormat;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
+
+
+
+
+
+
+
+
 public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 	
 	public PucpListaVector LlenaComboCiclos() throws Exception {
@@ -565,7 +587,7 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 			pstmt.executeUpdate();
 						
 		}catch(Exception e){
-			throw new PucpException(" Error al grabar alumnos en la declaraciÃ³n jurada familiar: "+ e.getMessage());
+			throw new PucpException(" Error al grabar alumnos en la declaración jurada familiar: "+ e.getMessage());
 		}finally{
 			try {if(rset!=null) rset.close();} catch(Exception er){}
 			try {if(pstmt!=null) pstmt.close();} catch(Exception er){}
@@ -604,7 +626,7 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 			pstmt.executeUpdate();
 			
 		}catch(Exception e){
-			throw new PucpException(" Error al grabar en la declaraciÃ³n jurada familiar: "+ e.getMessage());
+			throw new PucpException(" Error al grabar en la declaración jurada familiar: "+ e.getMessage());
 		}finally{
 			try {if(rset!=null) rset.close();} catch(Exception er){}
 			try {if(pstmt!=null) pstmt.close();} catch(Exception er){}
@@ -646,7 +668,7 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 			pstmt.executeUpdate();
 			
 		}catch(Exception e){
-			throw new PucpException(" Error al grabar en la declaraciÃ³n jurada familiar: "+ e.getMessage());
+			throw new PucpException(" Error al grabar en la declaración jurada familiar: "+ e.getMessage());
 		}finally{
 			try {if(rset!=null) rset.close();} catch(Exception er){}
 			try {if(pstmt!=null) pstmt.close();} catch(Exception er){}
@@ -786,5 +808,3 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 
 	
 }
-
-

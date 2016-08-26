@@ -13,7 +13,7 @@ import pucp.lib.exception.PucpException;
 import pucp.servsoci.beans.CitasAlumnosBeanData;
 import pucp.servsoci.beans.CitasAlumnosBeanFunction;
 
-public class AccionConsultarCitas extends PucpAccion{	
+public class AccionBusquedaCitas extends PucpAccion{	
 	
 	public void ejecutar (ServletContext sc, HttpServletRequest request, HttpServletResponse response)	
 	throws Exception{
@@ -43,7 +43,7 @@ public class AccionConsultarCitas extends PucpAccion{
 		    comboTramite.insertar("", "Seleccione un tramite", 0);
 		    request.setAttribute("comboTramite", comboTramite.toArrayString());  
 		    				
-			pucpForward(request, response, "/pucp/servsoci/sswcitas/jsp/AccionConsultarCitas.jsp");			
+			pucpForward(request, response, "/pucp/servsoci/sswcitas/jsp/AccionBusquedaCitas.jsp");			
 			
 		} catch (Exception exc) {
 			if (connection != null && !connection.isClosed()) {

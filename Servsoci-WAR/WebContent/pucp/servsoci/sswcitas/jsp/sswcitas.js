@@ -132,10 +132,20 @@ function boton_Consultar_Citas(){
 		alert('Seleccione un tramite de los mostrados para continuar con el proceso');
 		return;		  
 	}
-	
-    document.formcriterios.accion.value = "InsertarConsultaCitas";
+
+    document.formcriterios.accion.value = "BuscarCitas";
     document.formcriterios.submit();
     
+}
+
+/* Boton Exportar */
+
+function boton_Exportar_Citas(){
+
+	document.formcriterios.accion.value = "ExportarCitas";
+	
+	document.formcriterios.submit();
+	
 }
 
 

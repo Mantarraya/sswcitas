@@ -22,7 +22,7 @@
 <TITLE>
 </TITLE>
 <% response.addHeader("Cache-Control","no-cache"); %>
-<script type=text/javascript language="JavaScript1.2" src="jsp/sswdjf.js"> </script>
+<script type=text/javascript language="JavaScript1.2" src="jsp/sswcitas.js"> </script>
 <script type=text/javascript language="JavaScript1.2" src="../../lib/jsp/pucp.js"> </script>
 
 <script type="text/javascript" src="/pucp/lib/js/jquery/jquery-1.9.1.min.js"></script>
@@ -80,14 +80,15 @@ function verificaApostrofe(dato)
 </SCRIPT>
 
 <form  name="formcriterios" action="sswcitas" method="post">
-<input type="hidden" name="accion" value="InsertarActivacionDJF"> 
+<input type="hidden" name="accion" value="BuscarCitas"> 
 <input type="hidden" name="anio" > 
 <input type="hidden" name="ciclo" >
 <input type="hidden" name="tramite" >
 <input type="hidden" name="descripcion" >
+<input type="hidden" name="vectorResultados" >
 
 
-<% String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=ConsultarCitas";  %>
+<% String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=BusquedaCitas";  %>
 
 <table align="right" border-width="0" width="20%" >
 <tr>
@@ -187,8 +188,6 @@ function verificaApostrofe(dato)
 
 <table border="0" width="100%">
 <tr><td width="100%" colspan="3" align="center">
-
-<% String urlRegistrar = "/pucp/servsoci/sswcitas/sswcitas?accion=";  %>
 
 <a href=  "javascript:boton_Consultar_Citas();" >
 <img src="/pucp/lib/images/b_consultar.gif" class="pucpBoton" alt="">
