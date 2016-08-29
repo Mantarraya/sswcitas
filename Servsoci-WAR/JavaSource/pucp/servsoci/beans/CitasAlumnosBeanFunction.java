@@ -23,28 +23,6 @@ import pucp.lib.componentes.PucpListaVector;
 import pucp.lib.exception.PucpException;
 import pucp.lib.util.PucpMultipartRequest;
 
-
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Date;
-
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFDataFormat;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor;
-
-
-
-
-
-
-
-
 public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 	
 	public PucpListaVector LlenaComboCiclos() throws Exception {
@@ -62,9 +40,7 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 		}
 		
 	}
-	
-	
-	
+		
 	public PucpListaVector LlenaComboTramites() throws Exception {
 		
 		try{
@@ -280,37 +256,6 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 		}
 		
 	}
-	/*
-	private boolean insertarCita(String cicloAno, String ciclo, String tramite, String dia,
-			String hora, String codigo, String nombre, String lugar) throws Exception, SQLException  {
-		
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		   
-		   String dml = "";
-		
-		try{
-			
-    		rset = null;
-    		       		  
-    		dml = "INSERT INTO SERVSOCI.CITASXASIGNAR VALUES (TO_DATE(dia, 'dd/mm/yyyy'), TO_DATE(hora, 'dd/mm/yyyy hh24:mi:ss'), SERVSOCI.SEC_CITASXASIGNAR.nextval, cicloAno, ciclo, tramite,  codigo, nombre, lugar, '1')";
-    		
-    		pstmt = super.con.prepareStatement(dml);
-	
-    		pstmt.executeUpdate();
-			
-			return true;
-			   			
-		} catch (Exception e) {
-			super.con.rollback();
-			throw e;
-		} finally {
-			if (rset!= null) rset.close();
-			if (pstmt!= null) pstmt.close();				 	
-		}
-		
-	}
-	*/
 	
 	/* Obtener valores strings a partir de celdas de un archivo xls */
 	public String obtenValorStringCeldaHSSF (HSSFCell cell) throws Exception
@@ -804,7 +749,35 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 		return vAlumnos;
 					
 			
-		}
+	}
+	
+public void limpiarCitas(String anio, String ciclo, String tramite) throws PucpException {
+		
+		ResultSet rset=null;
+		PreparedStatement pstmt=null;
+		
+		try{
+			
+			CallableStatement ocs = super.con.prepareCall("{(call servsoci.pq_sswcitas.p_LimpiarCitas(?, ?, ?)}");
+		    ocs.setInt(1, Integer.parseInt(anio));
+		    ocs.setString(2, ciclo);
+		    ocs.setString(3, tramite); 
+		      
+		    ocs.execute();      
+		    ocs.close();
+			
+		}catch(Exception e){
+			throw new PucpException(" Error al limpiar el horario de citas: "+ e.getMessage());
+		}finally{
+			try {if(rset!=null) rset.close();} catch(Exception er){}
+			try {if(pstmt!=null) pstmt.close();} catch(Exception er){}
+		}				
+		
+	}
+	
 
+
+	
+	
 	
 }

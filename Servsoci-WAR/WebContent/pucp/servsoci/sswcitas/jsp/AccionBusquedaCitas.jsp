@@ -85,7 +85,6 @@ function verificaApostrofe(dato)
 <input type="hidden" name="ciclo" >
 <input type="hidden" name="tramite" >
 <input type="hidden" name="descripcion" >
-<input type="hidden" name="vectorResultados" >
 
 
 <% String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=BusquedaCitas";  %>

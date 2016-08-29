@@ -143,9 +143,11 @@ function boton_Consultar_Citas(){
 function boton_Exportar_Citas(){
 
 	document.formcriterios.accion.value = "ExportarCitas";
-	
+			
 	document.formcriterios.submit();
 	
+}
+
 }
 
 

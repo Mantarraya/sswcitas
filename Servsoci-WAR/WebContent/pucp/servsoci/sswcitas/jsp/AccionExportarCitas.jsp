@@ -1,6 +1,3 @@
-<?xml version="1.0"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
 <%-- 
 /**
  * PUCP Copyright (c) 2001 PUCP DIRINFO
@@ -8,7 +5,7 @@
  * Este archivo JSP muestra las citas asignadas de los alumnos
   --%>
 
-<%@ page contentType="application/vnd.ms-excel" %>
+<%@ page contentType="text/html;charset=ISO-8859-1"  %>
 <%@ page import="pucp.lib.PucpAplicacion" %>
 <%@ page import="pucp.lib.PucpAplicacionVariables" %>
 <%@ page import="pucp.lib.PucpSession" %>
@@ -35,264 +32,16 @@
 <jsp:useBean id="descripcion" scope="request" class="java.lang.String" />
 <jsp:useBean id="vectorResultados" scope="request" class="java.util.Vector" />
 
-
-<html xmlns:v="urn:schemas-microsoft-com:vml"
-xmlns:o="urn:schemas-microsoft-com:office:office"
-xmlns:x="urn:schemas-microsoft-com:office:excel"
-xmlns="http://www.w3.org/1999/xhtml">
-
-<html>
+<HTML>
 <head>
-
-<% 
-  // Control para guardar el resultado en el cache del browser:
-  response.setHeader("Cache-Control", "");   
-%>
-
-<meta http-equiv="Content-Type" content="application/vnd.ms-excel; charset=ISO-8859-1">
-<meta name="GENERATOR" content="Oracle JDeveloper">
-
-<html xmlns:o="urn:schemas-microsoft-com:office:office"
-xmlns:x="urn:schemas-microsoft-com:office:excel"
-xmlns="http://www.w3.org/TR/REC-html40">
-
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-<meta name="ProgId" content="Excel.Sheet">
-<meta name="Generator" content="Microsoft Excel 9">
-<link rel="File-List" href="./general_archivos/filelist.xml">
-<link rel="Edit-Time-Data" href="./general_archivos/editdata.mso">
-<link rel="OLE-Object-Data" href="./general_archivos/oledata.mso">
-
-
-<style>
-<!--table
-	{mso-displayed-decimal-separator:"\.";
-	mso-displayed-thousand-separator:"\,";}
-@page
-	{margin:0in 0in 0in 0in;
-	mso-header-margin:0in;
-	mso-footer-margin:0in;}
-tr
-	{mso-height-source:auto;}
-col
-	{mso-width-source:auto;}
-br
-	{mso-data-placement:same-cell;}
-.style0
-	{mso-number-format:General;
-	text-align:general;
-	vertical-align:bottom;
-	white-space:nowrap;
-	mso-rotate:0;
-	mso-background-source:auto;
-	mso-pattern:auto;
-	color:windowtext;
-	font-size:10.0pt;
-	font-weight:400;
-	font-style:normal;
-	text-decoration:none;
-	font-family:Arial;
-	mso-generic-font-family:auto;
-	mso-font-charset:0;
-	border:none;
-	mso-protection:locked visible;
-	mso-style-name:Normal;
-	mso-style-id:0;}
-td
-	{mso-style-parent:style0;
-	padding-top:1px;
-	padding-right:1px;
-	padding-left:1px;
-	mso-ignore:padding;
-	color:windowtext;
-	font-size:10.0pt;
-	font-weight:400;
-	font-style:normal;
-	text-decoration:none;
-	font-family:Arial;
-	mso-generic-font-family:auto;
-	mso-font-charset:0;
-	mso-number-format:General;
-	text-align:general;
-	vertical-align:bottom;
-	border:1px solid black;
-	mso-background-source:auto;
-	mso-pattern:auto;
-	mso-protection:locked visible;
-	white-space:nowrap;
-	mso-rotate:0;}
-.xl28
-	{mso-style-parent:style0;
-	font-weight:700;
-	font-family:Helvetica, sans-serif;
-	mso-font-charset:0;
-	text-align:left;
-	background:white;
-	mso-pattern:auto none;}
-.xl31
-	{mso-style-parent:style0;
-	font-size:8.0pt;
-	font-weight:700;
-	font-family:Helvetica, sans-serif;
-	mso-font-charset:0;
-	text-align:left;
-	background:white;
-	mso-pattern:auto none;
-	white-space:normal;}
-.xl34
-	{mso-style-parent:style0;
-	font-size:8.0pt;
-	font-family:Helvetica, sans-serif;
-	mso-font-charset:0;
-	text-align:left;
-	border-top:none;
-	border-right:.5pt solid silver;
-	border-bottom:.5pt solid silver;
-	border-left:.5pt solid silver;
-	background-color:blue;
-	mso-pattern:auto none;
-	white-space:normal;}
-.xl36
-	{mso-style-parent:style0;
-	font-size:8.0pt;
-	font-family:Helvetica, sans-serif;
-	mso-font-charset:0;
-	mso-number-format:"\@";
-	text-align:center;
-	border-top:none;
-	border-right:.5pt solid silver;
-	border-bottom:.5pt solid silver;
-	border-left:none;
-	background:white;
-	mso-pattern:auto none;
-	white-space:normal;}
-.xl37
-	{mso-style-parent:style0;
-	font-size:8.0pt;
-	font-family:Helvetica, sans-serif;
-	mso-font-charset:0;
-	mso-number-format:Fixed;
-	text-align:right;
-	border-top:none;
-	border-right:.5pt solid silver;
-	border-bottom:.5pt solid silver;
-	border-left:none;
-	background:white;
-	mso-pattern:auto none;
-	white-space:normal;}
-.xl38
-	{mso-style-parent:style0;
-	font-size:8.0pt;
-	font-family:Helvetica, sans-serif;
-	mso-font-charset:0;
-	mso-number-format:0;
-	text-align:right;
-	border-top:none;
-	border-right:.5pt solid silver;
-	border-bottom:.5pt solid silver;
-	border-left:none;
-	background:white;
-	mso-pattern:auto none;
-	white-space:normal;}
-.xl39
-	{mso-style-parent:style0;
-	font-size:8.0pt;
-	font-family:Helvetica, sans-serif;
-	mso-font-charset:0;
-	mso-number-format:Percent;
-	text-align:right;
-	border-top:none;
-	border-right:.5pt solid silver;
-	border-bottom:.5pt solid silver;
-	border-left:none;
-	background:white;
-	mso-pattern:auto none;
-	white-space:normal;}
-.xl47
-	{mso-style-parent:style0;
-	font-size:8.0pt;
-	font-weight:700;
-	font-family:Helvetica, sans-serif;
-	mso-font-charset:0;
-	text-align:center;
-	border-top:.5pt solid silver;
-	border-right:.5pt solid silver;
-	border-bottom:.5pt solid silver;
-	border-left:.5pt solid silver;
-	white-space:normal;}
-.xl48
-	{mso-style-parent:style0;
-	font-size:8.0pt;
-	font-weight:700;
-	font-family:Arial, sans-serif;
-	mso-font-charset:0;
-	text-align:left;
-	border-top:.5pt solid silver;
-	border-right:none;
-	border-bottom:.5pt solid silver;
-	border-left:.5pt solid silver;
-	white-space:normal;}
-.xl51
-	{mso-style-parent:style0;
-	font-size:8.0pt;
-	font-weight:700;
-	font-family:Arial, sans-serif;
-	mso-font-charset:0;
-	mso-number-format:Fixed;
-	text-align:right;
-	border-top:.5pt solid silver;
-	border-right:.5pt solid silver;
-	border-bottom:.5pt solid silver;
-	border-left:.5pt solid silver;
-	white-space:normal;}
--->
-</style>
-
-<!--[if gte mso 9]><xml>
- <o:DocumentProperties>
-  <o:LastAuthor></o:LastAuthor>
-  <o:Created></o:Created>
-  <o:LastSaved></o:LastSaved>
-  <o:Version></o:Version>
- </o:DocumentProperties>
- <o:OfficeDocumentSettings>
-  <o:DownloadComponents/>
-  <o:LocationOfComponents HRef="file:///F:/software/Microsoft/Office%25202000%2520Espanol/cd1/msowc.cab"/>
- </o:OfficeDocumentSettings>
-</xml><![endif]-->
-
-<!--[if gte mso 9]><xml>
- <x:ExcelWorkbook>
-  <x:ExcelWorksheets>
-   <x:ExcelWorksheet>
-    <x:Name>eswprenc.xls</x:Name>
-    <x:WorksheetOptions>
-     <x:DefaultRowHeight>270</x:DefaultRowHeight>
-     <x:DefaultColWidth>10</x:DefaultColWidth>
-     <x:Selected/>
-     <x:DoNotDisplayGridlines/>
-     <x:ProtectContents>False</x:ProtectContents>
-     <x:ProtectObjects>False</x:ProtectObjects>
-     <x:ProtectScenarios>False</x:ProtectScenarios>
-    </x:WorksheetOptions>
-   </x:ExcelWorksheet>
-  </x:ExcelWorksheets>
-  <x:WindowHeight>9150</x:WindowHeight>
-  <x:WindowWidth>15360</x:WindowWidth>
-  <x:WindowTopX>0</x:WindowTopX>
-  <x:WindowTopY>1365</x:WindowTopY>
-  <x:ProtectStructure>False</x:ProtectStructure>
-  <x:ProtectWindows>False</x:ProtectWindows>
- </x:ExcelWorkbook>
-</xml><![endif]-->
-</link></link></link></meta></meta></meta></head>
-
-
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META NAME="GENERATOR" CONTENT="Oracle JDeveloper">
 
 <link href="/pucp/lib/framework/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 <link href="/pucp/lib/jsp/pucp.bootstrap.compatibilidad.css" rel="stylesheet">
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../lib/jsp/pucp.css">
+<TITLE>
+</TITLE>
 <% response.addHeader("Cache-Control","no-cache"); %>
 <script type=text/javascript language="JavaScript1.2" src="jsp/sswcitas.js"> </script>
 <script type=text/javascript language="JavaScript1.2" src="../../lib/jsp/pucp.js"> </script>
@@ -341,30 +90,28 @@ function verificaApostrofe(dato)
 }
 </SCRIPT>
 
-<TITLE>
 
-</title>
-</LINK></html></META></HEAD>
 
- 
+</head> 
 
 <BODY bgcolor="#ffffff" topmargin="0" marginwidth="0" marginheight="0">
 
 
-<form method="post" name="formcriterios" id="formcriterios" action="sswcitas" enctype="multipart/form-data" onSubmit="return false; >
-
+<form  name="formcriterios" action="sswcitas" method="post">
 
 <input type="hidden" name="accion" value="ExportarCitas"> 
 <input type="hidden" name="anio" value="<%=anio%>">
 <input type="hidden" name="ciclo" value="<%=ciclo%>">
 <input type="hidden" name="tramite" value="<%=tramite%>">
 <input type="hidden" name="descripcion"value="<%=descripcion%>">
+
   
 </form>
 
 
 
 
+<!-- Activar DJF -->
 
 <% String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=BusquedaCitas";  %>
 
@@ -390,7 +137,7 @@ function verificaApostrofe(dato)
 <img src="/pucp/lib/images/b_exportar.gif" class="pucpBoton" alt="">
 </a>
 
-<a href=  "/pucp/servsoci/sswcitas/sswcitas?accion=ConsultarCitas" >
+<a href=  "/pucp/servsoci/sswcitas/sswcitas?accion=BusquedaCitas" >
 <img src="/pucp/lib/images/b_regresar.gif" class="pucpBoton" alt="">
 </a>
 
@@ -455,10 +202,6 @@ function verificaApostrofe(dato)
 <br>
 <br>
 <br>
-
-
-
-
 
 <%  int nVectorResultadosSize = vectorResultados.size(); 
     if (  nVectorResultadosSize==0 ) {

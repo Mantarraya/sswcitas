@@ -200,8 +200,16 @@ function verificaApostrofe(dato)
 <br>
 <br>
 <br>
-<br>
 
+<table border="0" width="100%" align="right">
+
+<tr><td width="100%" colspan="3" align="right">
+ Limpiar el horario de citas asignadas 
+<a href=  "/pucp/servsoci/sswcitas/sswcitas?accion=LimpiarCitas" >
+<img src="/pucp/lib/images/b_limpiar.gif" class="pucpBoton">
+</a>
+
+</table>
 
 
 
