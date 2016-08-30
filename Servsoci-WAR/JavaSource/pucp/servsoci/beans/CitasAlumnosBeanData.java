@@ -4,6 +4,19 @@ import java.io.InputStream;
 
 import pucp.lib.PucpBeanData;
 
+/**
+* PUCP Copyright © 2001 PUCP DIRINFO
+*
+* <p>Nombre de la Aplicacion: CitasAlumnosBeanData.java <p>
+* <p>Descripcion: Aplicacion encargada de preparar el BeanData para la 
+*                 asignacion de horario de citas de servicio social
+*                 respecto a la clasificacion de escalas para los nuevos
+*                 alumnos ingresantes. <p>
+* @author Juan Tomairo
+* @version 1.0
+* @since 2016-08-29
+*
+*/
 
 public class CitasAlumnosBeanData extends PucpBeanData {	
 	

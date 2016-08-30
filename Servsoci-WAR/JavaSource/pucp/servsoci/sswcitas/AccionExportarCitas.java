@@ -19,6 +19,19 @@ import pucp.lib.exception.PucpException;
 import pucp.lib.util.PucpMultipartRequest;
 import pucp.servsoci.beans.CitasAlumnosBeanFunction;
 
+/**
+* PUCP Copyright © 2001 PUCP DIRINFO
+*
+* <p>Nombre de la Aplicacion: AccionExportarCitas.java <p>
+* <p>Descripcion: Aplicacion encargada de exportar un archivo excel conla informacion <p>    
+*
+* @author Juan Tomairo
+* @version 1.0
+* @throws Exception
+* @since 2016-08-29
+*
+*/
+
 
 public class AccionExportarCitas extends PucpAccion{	
 	

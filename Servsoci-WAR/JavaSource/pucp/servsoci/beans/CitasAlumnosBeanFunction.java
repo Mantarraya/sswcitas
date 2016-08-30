@@ -23,6 +23,19 @@ import pucp.lib.componentes.PucpListaVector;
 import pucp.lib.exception.PucpException;
 import pucp.lib.util.PucpMultipartRequest;
 
+/**
+* PUCP Copyright © 2001 PUCP DIRINFO
+*
+* <p>Nombre de la Aplicacion: CitasAlumnosBeanFunction.java <p>
+* <p>Descripcion: Aplicacion encargada de preparar las funciones para la asignacion de horarios de citas
+*                 sobre la declaracion jurada familiar para los nuevos alumnos ingresantes. <p>
+*
+* @author Juan Tomairo
+* @version 1.0
+* @since 2016-08-29
+*
+*/
+
 public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 	
 	public PucpListaVector LlenaComboCiclos() throws Exception {
@@ -191,8 +204,6 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
         
 		return (r-3);      
     }	
-
-	
 	
 	private boolean insertarCita(String sAnio, String sCiclo, String sTramite, String dia,
 			String hora, String codigo, String nombre, String lugar) throws Exception, SQLException  {
@@ -200,19 +211,7 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		   
-		   String dml = "";
-		   
-		   /*
-		   if (1 == 1)
-   			throw new PucpException("Anio = " + sAnio +
-   						" Ciclo = " + sCiclo +
-   						" sTramite = " + sTramite +
-						" Dia = " + dia + 
-						" Hora = " + hora +
-						" Codigo = " + codigo + 
-						" Nombre = " + nombre + 
-						" Lugar = " + lugar);
-		*/
+		String dml = "";		   
 		
 		try{
 			
@@ -226,9 +225,6 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
     			" ( TO_DATE(?, 'yyyy/MM/dd'), TO_DATE(?, 'yyyy/MM/dd hh24:mi:ss')," +
     			"   SERVSOCI.SEC_CITASXASIGNAR.nextval, ?, ?, ?, " +
     			"   '0', ?, ?, ?)";
-
-    		//dml = "INSERT INTO SERVSOCI.CITASXASIGNAR VALUES (SYSDATE, SYSDATE, SERVSOCI.SEC_CITASXASIGNAR.nextval, ?, ?, ?,  '20162016', 'Asistente', 'Lugar', '1')";
-    		
     		
     		pstmt = super.con.prepareStatement(dml);
     		
@@ -241,8 +237,6 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 			pstmt.setString(7, nombre);			
 			pstmt.setString(8, lugar);			
 
-			
-	
     		pstmt.executeUpdate();
 			
 			return true;
@@ -320,52 +314,6 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 		throw exc;	
 		}
 	}
-	
-	
-	
-	
-	
-	
-	public boolean foobar(PucpMultipartRequest multiRequest) throws Exception, SQLException {
-
-
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		   
-		   String dml = "";
-				   
-		   String sAnio = multiRequest.getParameter("anio");
-		   String sCiclo = multiRequest.getParameter("ciclo");
-		   String sTramite = multiRequest.getParameter("tramite");
-		
-		try{
-			
-    		rset = null;
-    		       		  
-    		dml = "INSERT INTO SERVSOCI.CITASXASIGNAR VALUES (SYSDATE, SYSDATE, SERVSOCI.SEC_CITASXASIGNAR.nextval, ?, ?, ?,  '20162016', 'nombreA', 'nombreS', '1')";
-    		
-    		pstmt = super.con.prepareStatement(dml);
-   			
-    		
-    		
-			pstmt.setString(1, sAnio);			
-			pstmt.setString(2, sCiclo);			
-			pstmt.setString(3, sTramite);
-    		pstmt.executeUpdate();
-			
-			return true;
-			   			
-		} catch (Exception e) {
-			super.con.rollback();
-			throw e;
-		} finally {
-			if (rset!= null) rset.close();
-			if (pstmt!= null) pstmt.close();				 	
-		}
-
-		
-	}	
-
 
 	/* 11/08/2016 */
 

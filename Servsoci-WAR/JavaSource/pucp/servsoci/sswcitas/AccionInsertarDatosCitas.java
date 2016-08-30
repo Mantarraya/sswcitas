@@ -10,13 +10,27 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import pucp.lib.PucpAccion;
-
 import pucp.lib.exception.PucpException;
 import pucp.lib.util.PucpMultipartRequest;
 import pucp.servsoci.beans.CitasAlumnosBeanData;
 import pucp.servsoci.beans.CitasAlumnosBeanFunction;
+
+/**
+* PUCP Copyright © 2001 PUCP DIRINFO
+*
+* <p>Nombre de la Aplicacion: AccionInsertarDatosCitas.java <p>
+* <p>Descripcion: Aplicacion encargada de insertar los datos de los horarios de las citas
+*                 que se encuentran adjuntado en un archivo excel con extension xls en la tabla
+*                 SERVSOCI.CITASXASIGNAR con el respectivo anio-ciclo y tramite(tipo de ingreso)
+*                 seleccionado por el usuario y/o personal encargado. <p>    
+*
+* @author Juan Tomairo
+* @version 1.0
+* @throws Exception
+* @since 2016-08-29
+*
+*/
 
 public class AccionInsertarDatosCitas extends PucpAccion{
 	public void ejecutar(ServletContext sc, HttpServletRequest request, HttpServletResponse response, PucpMultipartRequest multiRequest) 
@@ -40,21 +54,12 @@ public class AccionInsertarDatosCitas extends PucpAccion{
 			InputStream contenido = multiRequest.getFileContent("file");
 	    
 	    	CitasAlumnosBeanFunction CitasExcel = new CitasAlumnosBeanFunction();
-	    	CitasExcel.setCon(connectionServSoci);
-	    	
-	    	/*
-	    	if (1==1){
-	    		throw new PucpException("Anio = " + anio + " Ciclo = " + ciclo + " Tramite = " + tramite + 
-	    				                " Nombre de archivo = " + nombreArchivo + " Extension = " + extension +
-	    				                " Descripcion = " + descripcion);
-	    	}
-			*/
+	    	CitasExcel.setCon(connectionServSoci);	    
 	    	
 	    	int cargoCita = -1;
 	    		    	    		    	
 	    	if (extension.equals("xls")){
-	    		
-	    		
+	    			    		
 	    		/* Eliminar citas en la tabla temporal SERVSOCI.CITASXASIGNAR */
 	    		
 	    		CitasExcel.eliminarCitas(anio, ciclo, tramite);	    		
@@ -71,7 +76,6 @@ public class AccionInsertarDatosCitas extends PucpAccion{
 	    		if (cargoCita == -1){
 	    			throw new PucpException("Ocurrio un error al cargar el archivo excel");
 	    		}
-
 	    		
 	    	}	    
 	    	else if (extension.equals("xlsx")){
@@ -79,32 +83,7 @@ public class AccionInsertarDatosCitas extends PucpAccion{
 	    	}
 	    	else{
 	    		throw new PucpException("Se debe adjuntar un archivo con extension .xls");
-	    	}
-	    	
-	    	
-	    /*	
-			String nombreArchivo  = ((PucpMultipartRequest) request).getFileFullName("file");    
-			String extension = ((PucpMultipartRequest) request).getFileExtension("file");        
-			InputStream contenido = ((PucpMultipartRequest) request).getFileContent("file"); 
-		 
-			String nombreArchivo  = multirequest.getFileFullName("file");
-			String extension = multirequest.getFileExtension("file");    
-			InputStream contenido = multirequest.getFileContent("file");
-			
-			if ((extension == null) || (extension.equals("")) || (!extension.equalsIgnoreCase("xls")) || (!extension.equalsIgnoreCase("xls")))
-		      {
-		        throw new PucpException("Ocurrió un error al cargar el archivo excel");
-		      }
-
-		      CitasAlumnosBeanFunction CitasExcel = new CitasAlumnosBeanFunction();
-  
-		      boolean cargoCitasServSoci = CitasExcel.cargarCitas(contenido, anio, ciclo, tramite);
-		      
-		      if (!cargoCitasServSoci) {
-		        throw new PucpException("Ocurrió un error al cargar el archivo excel");
-		      }
-	    	   				
-		      */
+	    	}	    	
 	    	
  	        pucpForward(request, response, "/pucp/servsoci/sswcitas/jsp/AccionInsertarDatosCitas.jsp");
 	        	    

@@ -12,6 +12,21 @@ import pucp.lib.PucpUsuarioVariables;
 import pucp.lib.exception.PucpException;
 import pucp.servsoci.beans.CitasAlumnosBeanFunction;
 
+/**
+* PUCP Copyright © 2001 PUCP DIRINFO
+*
+* <p>Nombre de la Aplicacion: AccionInsertarAsignacion.java <p>
+* <p>Descripcion: Aplicacion encargada de asignar los horarios de las citas
+*                 almacenadas en la tabla temporal SERVSOCI.CITASXASIGNAR 
+*                 hacia la tabla SERVSOCI.ALUMNODJF de un respectivo ciclo,
+*                 anio y tramite(tipo de ingreso). <p>    
+*
+* @author Juan Tomairo
+* @version 1.0
+* @throws Exception
+* @since 2016-08-29
+*
+*/
 
 public class AccionInsertarAsignacionCitas extends PucpAccion{	
 	

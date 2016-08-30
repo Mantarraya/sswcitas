@@ -19,6 +19,20 @@ import pucp.lib.exception.PucpException;
 import pucp.lib.util.PucpMultipartRequest;
 import pucp.servsoci.beans.CitasAlumnosBeanFunction;
 
+/**
+* PUCP Copyright © 2001 PUCP DIRINFO
+*
+* <p>Nombre de la Aplicacion: AccionBuscarCitas.java <p>
+* <p>Descripcion: Aplicacion encargada de mostrar el horario de citas de cada alumno
+*                 nuevo ingresante con una asistenta social <p>    
+*
+* @author Juan Tomairo
+* @version 1.0
+* @throws Exception
+* @since 2016-08-29
+*
+*/
+
 
 public class AccionBuscarCitas extends PucpAccion{	
 	

@@ -12,6 +12,20 @@ import pucp.lib.PucpUsuarioVariables;
 import pucp.lib.exception.PucpException;
 import pucp.servsoci.beans.CitasAlumnosBeanFunction;
 
+/**
+* PUCP Copyright © 2001 PUCP DIRINFO
+*
+* <p>Nombre de la Aplicacion: AccionInsertarActivacionDJF.java <p>
+* <p>Descripcion: Aplicacion encargada activar la declaracion jurada familiar a los nuevos
+*                 alumnos ingresantes para que tengan opcion de llenar los datos respectivos
+*                 para su asignacion de escala via campus virtual. 
+*
+* @author Juan Tomairo
+* @version 1.0
+* @throws Exception
+* @since 2016-08-29
+*
+*/
 
 public class AccionInsertarActivacionDJF extends PucpAccion{	
 	

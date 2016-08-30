@@ -12,6 +12,19 @@ import pucp.lib.componentes.PucpListaVector;
 import pucp.servsoci.beans.CitasAlumnosBeanData;
 import pucp.servsoci.beans.CitasAlumnosBeanFunction;
 
+/**
+* PUCP Copyright © 2001 PUCP DIRINFO
+*
+* <p>Nombre de la Aplicacion: AccionActivarDJF.java <p>
+* <p>Descripcion: Aplicacion encargada de obtener los combos de ciclo-anio y tramite
+*                 y mostrarlos en el respectivo jsp (AccionActivarDJF.jsp) para proceder 
+*                 con la activacion de la declaración jurada familiar. <p>
+* @author Juan Tomairo
+* @version 1.0
+* @throws Exception
+* @since 2016-08-29
+*
+*/
 
 public class AccionActivarDJF extends PucpAccion{	
 	

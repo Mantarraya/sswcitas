@@ -8,6 +8,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import pucp.lib.PucpAccion;
 
+/**
+* PUCP Copyright © 2001 PUCP DIRINFO
+*
+* <p>Nombre de la Aplicacion: AccionMostrarInstrucciones.java <p>
+* <p>Descripcion: Aplicacion encargada de mostrar las acciones principales para el proceso de asignacion
+*                 de citas y activacion de la declaracion jurada familiar, todo visualizado en su respectivo
+*                 jsp (AccionMostrarInstrucciones.jsp) <p>    
+*
+* @author Juan Tomairo
+* @version 1.0
+* @throws Exception
+* @since 2016-08-29
+*
+*/
+
 
 public class AccionMostrarInstrucciones extends PucpAccion{	
 	

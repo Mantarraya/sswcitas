@@ -1,3 +1,5 @@
+/* Juan Tomairo - Agosto 2016 */
+
 /* Registrar Citas*/
 
 function boton_Registrar_Citas(){

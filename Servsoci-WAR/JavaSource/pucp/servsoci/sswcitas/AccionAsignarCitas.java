@@ -10,6 +10,19 @@ import pucp.lib.PucpAccion;
 import pucp.lib.componentes.PucpListaVector;
 import pucp.servsoci.beans.CitasAlumnosBeanFunction;
 
+/**
+* PUCP Copyright © 2001 PUCP DIRINFO
+*
+* <p>Nombre de la Aplicacion: AccionAsignarCitas.java <p>
+* <p>Descripcion: Aplicacion encargada de obtener los combos de ciclo-anio y tramite
+*                 y mostrarlos en el respectivo jsp (AccionAsignarCitas.jsp) para proceder 
+*                 con la asignacion de horario de citas <p>
+* @author Juan Tomairo
+* @version 1.0
+* @throws Exception
+* @since 2016-08-29
+*
+*/
 
 public class AccionAsignarCitas extends PucpAccion{	
 	

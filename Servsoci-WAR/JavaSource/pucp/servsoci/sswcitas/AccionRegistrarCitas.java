@@ -15,6 +15,20 @@ import pucp.lib.exception.PucpException;
 import pucp.lib.util.PucpMultipartRequest;
 import pucp.servsoci.beans.CitasAlumnosBeanFunction;
 
+/**
+* PUCP Copyright © 2001 PUCP DIRINFO
+*
+* <p>Nombre de la Aplicacion: AccionRegistrarCitas.java <p>
+* <p>Descripcion: Aplicacion encargada de obtener los combos de ciclo-anio y tramite
+*                 y mostrarlos en el respectivo jsp (AccionRegistrarCitas.jsp) para proceder 
+*                 con el registro del horario de citas desde un archivo excel con extension xls. <p>
+* @author Juan Tomairo
+* @version 1.0
+* @throws Exception
+* @since 2016-08-29
+*
+*/
+
 public class AccionRegistrarCitas extends PucpAccion
 {
   public void ejecutar(ServletContext sc, HttpServletRequest request, HttpServletResponse response)
@@ -47,35 +61,7 @@ public class AccionRegistrarCitas extends PucpAccion
      
       comboTramite = BusquedaTramites.LlenaComboTramites();
       comboTramite.insertar("", "Seleccione un tramite", 0);
-      request.setAttribute("comboTramite", comboTramite.toArrayString());     
-      
-      
-      /*
-      
-      String cicloAno = request.getParameter("comboCiclo").substring(0, 3);
-      String ciclo = request.getParameter("comboCiclo").substring(5, 5);
-      String tramite = request.getParameter("comboTramite");
-      
-      
-      
-      String nombreArchivo = ((PucpMultipartRequest) request).getFileFullName("file");
-      String extension = ((PucpMultipartRequest) request).getFileExtension("file");
-      InputStream contenido = ((PucpMultipartRequest) request).getFileContent("file");
-
-      if ((extension == null) || (extension.equals("")) || (!extension.equalsIgnoreCase("xls")) || (!extension.equalsIgnoreCase("xls")))
-      {
-        throw new PucpException("Ocurrió un error al cargar el archivo excel");
-      }
-
-      CitasAlumnosBeanFunction CitasExcel = new CitasAlumnosBeanFunction();
-
-      boolean cargoCitasServSoci = CitasExcel.cargarCitas(contenido, cicloAno, ciclo, tramite);
-
-      if (!cargoCitasServSoci) {
-        throw new PucpException("Ocurrió un error al cargar el archivo excel");
-      }
-      
-      */
+      request.setAttribute("comboTramite", comboTramite.toArrayString());                 
 
       pucpForward(request, response, "/pucp/servsoci/sswcitas/jsp/AccionRegistrarCitas.jsp");      
       

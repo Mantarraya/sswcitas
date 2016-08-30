@@ -2,7 +2,37 @@ package pucp.servsoci.beans;
 
 import java.io.InputStream;
 
+
+/**
+* PUCP Copyright © 2001 PUCP DIRINFO
+*
+* <p>Nombre de la Aplicacion: ConsultaCitasBeanData <p>
+* <p>Descripcion: Aplicacion encargada de preparar el BeanData para la impresion de horario
+*                 de citas asignadas a los nuevos alumnos ingresantes con respecto al tema
+*                 de la declaracion jurada familiar y asignacion de escalas. <p>
+*
+* @author Juan Tomairo
+* @version 1.0
+* @since 2016-08-29
+*
+*/
+
 import pucp.lib.PucpBeanData;
+
+/**
+* PUCP Copyright © 2001 PUCP DIRINFO
+*
+* <p>Nombre de la Aplicacion: ConsultaCitasBeanData <p>
+* <p>Descripcion: Aplicacion encargada de preparar el BeanData para mostrar la 
+*                 asignacion de horario de citas para la entrevista de cada alumno 
+*                 nuevo inresante con una asistenta social respecto a la clasificacion 
+*                 de escalas. <p>
+* @author Juan Tomairo
+* @version 1.0
+* @since 2016-08-29
+*
+*/
+
 
 public class ConsultaCitasBeanData extends PucpBeanData {	
 	

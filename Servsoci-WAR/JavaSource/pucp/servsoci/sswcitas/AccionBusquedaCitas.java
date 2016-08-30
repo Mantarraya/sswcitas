@@ -13,6 +13,21 @@ import pucp.lib.exception.PucpException;
 import pucp.servsoci.beans.CitasAlumnosBeanData;
 import pucp.servsoci.beans.CitasAlumnosBeanFunction;
 
+/**
+* PUCP Copyright © 2001 PUCP DIRINFO
+*
+* <p>Nombre de la Aplicacion: AccionBusquedaCitas <p>
+* <p>Descripcion: Aplicacion encargada de obtener los combos de ciclo-anio y tramite
+*                 y mostrarlos en el respectivo jsp (AccionBusquedaCitas.jsp) para proceder 
+*                 con la consulta de horarios asignados a los nuevos alumnos ingresantes. <p>
+* @author Juan Tomairo
+* @version 1.0
+* @throws Exception
+* @since 2016-08-29
+*
+*/
+
+
 public class AccionBusquedaCitas extends PucpAccion{	
 	
 	public void ejecutar (ServletContext sc, HttpServletRequest request, HttpServletResponse response)	
