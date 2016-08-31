@@ -29,6 +29,7 @@ public final class Sswcitas extends PucpHttpServlet
 	    this.acciones.put("BuscarCitas", new AccionBuscarCitas());
 	    this.acciones.put("ExportarCitas", new AccionExportarCitas());
 	    this.acciones.put("LimpiarCitas", new AccionLimpiarCitas());
-
+	    this.acciones.put("ActualizarLimpiezaCitas", new AccionActualizarLimpiezaCitas());
+	    
 	  }  
 }

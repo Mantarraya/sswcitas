@@ -150,6 +150,35 @@ function boton_Exportar_Citas(){
 	
 }
 
+
+/* Boton Limpiar Citas */
+
+function boton_Limpiar_Citas(){
+	
+	/* Combo Ciclo */
+	var cadena=document.formcriterios.comboCiclo.options[document.formcriterios.comboCiclo.selectedIndex].value;
+	document.formcriterios.anio.value=cadena.substr(0,4);
+	document.formcriterios.ciclo.value=cadena.substr(5,1);
+	
+	if (cadena=='' ) {
+		alert('Seleccione un ciclo de los mostrados para continuar con el proceso');
+		return;		  
+	}
+	
+	/* Combo Tramite */
+	
+	cadena=document.formcriterios.comboTramite.options[document.formcriterios.comboTramite.selectedIndex].value;
+	
+	document.formcriterios.tramite.value=cadena;		
+	
+	if (cadena=='' ) {
+		alert('Seleccione un tramite de los mostrados para continuar con el proceso');
+		return;		  
+	}
+	
+    document.formcriterios.accion.value = "ActualizarLimpiezaCitas";
+    document.formcriterios.submit();
+
 }
 
 

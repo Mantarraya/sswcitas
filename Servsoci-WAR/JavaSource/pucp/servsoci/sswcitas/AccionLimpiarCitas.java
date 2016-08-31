@@ -5,13 +5,26 @@ import java.sql.Connection;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import pucp.lib.PucpAccion;
-import pucp.lib.PucpAccionException;
 import pucp.lib.PucpSession;
-import pucp.lib.PucpUsuarioVariables;
-import pucp.lib.exception.PucpException;
+import pucp.lib.componentes.PucpListaVector;
+import pucp.servsoci.beans.CitasAlumnosBeanData;
 import pucp.servsoci.beans.CitasAlumnosBeanFunction;
 
+/**
+* PUCP Copyright © 2001 PUCP DIRINFO
+*
+* <p>Nombre de la Aplicacion: AccionLimpiarCitas.java <p>
+* <p>Descripcion: Aplicacion encargada de obtener los combos de ciclo-anio y tramite
+*                 y mostrarlos en el respectivo jsp (AccionLimpiarCitas.jsp) para proceder 
+*                 con la actualizacion de citas asignadas (limpieza). <p>
+* @author Juan Tomairo
+* @version 1.0
+* @throws Exception
+* @since 2016-08-29
+*
+*/
 
 public class AccionLimpiarCitas extends PucpAccion{	
 	
@@ -21,48 +34,37 @@ public class AccionLimpiarCitas extends PucpAccion{
 		super.ejecutar(sc, request, response);		
 		Connection connection = this.getConnection("DESA", "SERVSOCI", "AUX_ILIO_");
 		
-		PucpUsuarioVariables puv = PucpSession.getUsuarioVariables(sc,request, response);
-		
-		try {	
-			
-			String anio = request.getParameter("anio");
-	    	String ciclo = request.getParameter("ciclo");
-	    	String tramite = request.getParameter("tramite"); 
-			
-	    	request.setAttribute("anio",request.getParameter("anio"));
-	    	request.setAttribute("ciclo",request.getParameter("ciclo"));
-	    	request.setAttribute("tramite",request.getParameter("tramite"));	
-	    		    		    	
-	    	CitasAlumnosBeanFunction Citas = new CitasAlumnosBeanFunction();
-	    	Citas.setCon(connection);
+		try {			
+		    	
+		    /* Combo Ciclos */ 	
+		    PucpListaVector comboCiclo = new PucpListaVector();
 
-	    	
-	    	if (1 == 1)
-	    		throw new PucpException(anio + ciclo + tramite);
-	    	
-	    	
-	    	/* Descripcion del tramite */
-	    	String descripcion = Citas.obtenerDescripcion(tramite);
-    		request.setAttribute("descripcion", descripcion);
-    		
-    		
-    		/* Tipo grupo del tramite */
-    		String tipogrupo = Citas.obtenerTipoGrupo(tramite);
-    		request.setAttribute("tipogrupo", tipogrupo);
-    		
-    		
-    		/* Procedemos a activar la declaracion jurada familiar */
-    		    	
-    		Citas.limpiarCitas(anio, ciclo, tramite); 		    		
-    					
-    		
-			pucpForward(request, response, "/pucp/servsoci/sswcitas/jsp/AccionBuscarCitas.jsp");			
+		    CitasAlumnosBeanFunction BusquedaCiclos = new CitasAlumnosBeanFunction();
+		    BusquedaCiclos.setCon(connection);
 
+		    comboCiclo = BusquedaCiclos.LlenaComboCiclos();
+		    comboCiclo.insertar("", "Seleccione un ciclo", 0);
+		    request.setAttribute("comboCiclo", comboCiclo.toArrayString());
+
+		      
+		    /* Combo Tramites */
+		      
+		    PucpListaVector comboTramite = new PucpListaVector();
+
+		    CitasAlumnosBeanFunction BusquedaTramites = new CitasAlumnosBeanFunction();
+		    BusquedaTramites.setCon(connection);
+		     
+		    comboTramite = BusquedaTramites.LlenaComboTramites();
+		    comboTramite.insertar("", "Seleccione un tramite", 0);
+		    request.setAttribute("comboTramite", comboTramite.toArrayString());  
+									
+			pucpForward(request, response, "/pucp/servsoci/sswcitas/jsp/AccionLimpiarCitas.jsp");			
+			
 		} catch (Exception exc) {
 			if (connection != null && !connection.isClosed()) {
 				try { connection.rollback();
 				} catch (Exception e) {
-	
+
 				}
 			}
 			throw exc;
@@ -78,8 +80,8 @@ public class AccionLimpiarCitas extends PucpAccion{
 				}
 			}
 		}
-	
-}
-	
 		
+	}
+
+	
 }

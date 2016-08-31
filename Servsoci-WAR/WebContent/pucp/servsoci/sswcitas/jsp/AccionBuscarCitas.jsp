@@ -201,6 +201,7 @@ function verificaApostrofe(dato)
 <br>
 <br>
 
+<!--
 <table border="0" width="100%" align="right">
 
 <tr><td width="100%" colspan="3" align="right">
@@ -210,7 +211,7 @@ function verificaApostrofe(dato)
 </a>
 
 </table>
-
+-->
 
 
 

@@ -2,7 +2,7 @@
 /**
  * PUCP Copyright (c) 2001 PUCP DIRINFO
  * @author Juan Tomairo
- * Este archivo JSP contiene los criterios de la consulta para el registro de citas 
+ * Este archivo JSP contiene la limpieza de citas
   --%>
 
 <%@ page contentType="text/html;charset=ISO-8859-1"  %>
@@ -23,12 +23,12 @@
 <link REL ="stylesheet" TYPE="text/css" HREF="/pucp/ambientes/jsp/ambientes.css" >  
 
 
-
 <jsp:useBean id="comboCiclo" scope="request" class="java.lang.Object" />
 <jsp:useBean id="comboTramite" scope="request" class="java.lang.Object" />
 <jsp:useBean id="anio" scope="request" class="java.lang.String" />
 <jsp:useBean id="ciclo" scope="request" class="java.lang.String" />
 <jsp:useBean id="tramite" scope="request" class="java.lang.String" />
+<jsp:useBean id="descripcion" scope="request" class="java.lang.String" />
 
 <HTML>
 <head>
@@ -96,71 +96,40 @@ function verificaApostrofe(dato)
 
 
 
-
-
-
-
 <form method="post" name="formcriterios" id="formcriterios" action="sswcitas" enctype="multipart/form-data"  >
 
-<input type="hidden" name="accion" value="InsertarDatosCitas"> 
+<input type="hidden" name="accion" value="ActualizarLimpiezaCitas"> 
 <input type="hidden" name="anio" value="<%=anio%>">
 <input type="hidden" name="ciclo" value="<%=ciclo%>">
 <input type="hidden" name="tramite" value="<%=tramite%>">
-
-
-
-
-
-
-   
+<input type="hidden" name="descripcion"value="<%=descripcion%>">
+  
 </form>
 
-
-
-
-</td></tr>
 </table>
 
 
-<br>
-<br>
 
 
+<% String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=LimpiarCitas";  %>
 
-<%-- Panel de asignacion de citas --%>
-<% 
-String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=RegistrarCitas"; 
-%>
-<table align="right" border-width="0" width="60%" >
+<table align="right" border-width="0" width="20%" >
 <tr>
-
-   <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="<%=response.encodeURL(urlCitas)%>" 
-       onMouseOver="self.status = ''; return true">Registrar citas</a></td>
-
-   <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="/pucp/servsoci/sswcitas/sswcitas?accion=ActivarDJF" 
-       onMouseOver="self.status = ''; return true">Activar declaración jurada familiar</a></td>
-
-   <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="/pucp/servsoci/sswcitas/sswcitas?accion=AsignarCitas" 
-       onMouseOver="self.status = ''; return true">Asignar citas</a></td> 
-
-   <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="/pucp/servsoci/sswcitas/sswcitas?accion=BusquedaCitas" 
-       onMouseOver="self.status = ''; return true">Consultar citas</a></td>    
-
-  <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="/pucp/servsoci/sswcitas/sswcitas?accion=LimpiarCitas" 
-       onMouseOver="self.status = ''; return true">Limpiar Citas</a></td>                  
-
+   <td align="center" class = "pucpCeldaMenu"><a class="pucpRefMenu" href="<%=response.encodeURL(urlCitas)%>" onMouseOver="self.status = ''; return true">Limpiar citas</a></td>   
 </tr>
 </table> 
-<br>
 
-<!--  Boton Regresar -->
+
+<!--  Boton Finalizar -->
+
 <table border="0" width="100%">
 <tr><td width="100%" colspan="3" align="right">
-<a href= "javascript:history.back();" >
-<img src="/pucp/lib/images/b_regresar.gif" class="pucpBoton" alt="">
+
+<a href=  "/pucp/servsoci/sswcitas/sswcitas?accion=MostrarInstrucciones" >
+<img src="/pucp/lib/images/b_finalizar.gif" class="pucpBoton" alt="">
 </a>
 
-<table width="98%">
+</table>
 
 
 <%-- Registrar citas a los nuevos alumnos ingresantes --%>
@@ -168,71 +137,66 @@ String urlCitas = "/pucp/servsoci/sswcitas/sswcitas?accion=RegistrarCitas";
 <table align="right" border-width="0" width="20%" class = "pucpTablaTitulo">
 <tr><td>
 <font class="pucpTitulo" >
-     OFICINA DE SERVICIO DE APOYO SOCIAL
+     Limpiar citas asignadas
 </font></td>
 <td></td>
 </tr>
 </table>
+<br>
+<br>
 
-<DIV ALIGN="right">
-<TABLE class="pucpTablaTitulo" width="100%">
-  <tr>
-    <TD ALIGN="left" class="pucpInfReg">Panel de asignación de citas</TD>
-  </tr>
-</table>
-</DIV>
+
+<%-- Estado del registro --%>
 
 <table class = "pucpTablaSubTitulo" width="100%">
-<tr><td><font class = "pucpSubTitulo" > Indicaciones </font></td> </tr>
+<tr><td><font class = "pucpSubTitulo" > Estado de Limpieza </font></td> </tr>
 </table>
 
 <br>
 
+<table width="30%" align="center">
 
-<table align="center" width="35%">
 <tr>
-	<td width="20%" align="center"><img src="/pucp/lib/images/i_calendario.gif"></a></td>
-	<td width="80%" ><a href="/pucp/servsoci/sswcitas/sswcitas?accion=RegistrarCitas" class="pucpLink">1. Registrar los horarios de citas de las asistentas sociales</a></td>
-</tr>
-<tr>
-	<td width="20%" align="center"><img width="32" heigh="35" src="/pucp/lib/images/i_db.gif"></a></td>
-	<td width="80%" ><a href="/pucp/servsoci/sswcitas/sswcitas?accion=ActivarDJF" class="pucpLink">2. Activar declaración jurada familiar</a></td>
-</tr>
-<tr>
-	<td width="20%" align="center"><img src="/pucp/lib/images/i_aprobacion.gif"></a></td>
-	<td width="80%" ><a href="/pucp/servsoci/sswcitas/sswcitas?accion=AsignarCitas" class="pucpLink">3. Asignar los horarios de citas a los alumnos </a></td>
-</tr>
-<tr>
-	<td width="20%" align="center"><img src="/pucp/lib/images/i_xls.gif"  width="35%" ></a></td>
-	<td width="80%" ><a href="/pucp/servsoci/sswcitas/sswcitas?accion=BusquedaCitas" class="pucpLink">4. Consultar citas asignadas</a></td>	
-</tr>
-<tr>
-  <td width="20%" align="center"><img src="/pucp/lib/images/i_menos.gif"  width="35%" ></a></td>
-  <td width="80%" ><a href="/pucp/servsoci/sswcitas/sswcitas?accion=LimpiarCitas" class="pucpLink">5. Limpiar citas asignadas</a></td> 
-</tr>
+    <td > Los horarios de citas de las asistentas sociales fueron borradas.
+          Puede verificarlo en la opcion: Consultar citas</td>
+  </tr>
+  </table>
+
+  <br>
+
+
+<table width="30%" align="center">
+
+  
+
+  <tr>
+    <td > <font color="6798a6">Ciclo </font> 
+    <td> <%=anio%>-<%=ciclo%> </td>
+  </tr>
+
+  <tr>
+    <td> <font color="6798a6">Tramite </font>  </td>
+    <td > <%=descripcion%></td>
+  </tr>
+
 
 
 </table>
-
-
-
-
 
 
  <br>
 
 
-<!--  Boton Regresar -->
+<!--  Boton Finalizar -->
 <table border="0" width="100%">
 <tr><td width="100%" colspan="3" align="center">
 
-<a href= "javascript:history.back();" >
-<img src="/pucp/lib/images/b_regresar.gif" class="pucpBoton" alt="">
+<a href=  "/pucp/servsoci/sswcitas/sswcitas?accion=MostrarInstrucciones" >
+<img src="/pucp/lib/images/b_finalizar.gif" class="pucpBoton" alt="">
 </a>
 
-</td></tr>
-</table>
 
+</table>
 
 
 <br>

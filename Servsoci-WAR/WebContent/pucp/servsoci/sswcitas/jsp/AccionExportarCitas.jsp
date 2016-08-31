@@ -344,13 +344,13 @@ td
 				  <% 
 				  String horaCita = BusquedaData.getHoraCita();
 				  if (horaCita == null) horaCita = "";
-				  else horaCita = ". " + horaCita;
+				  else horaCita = "." + horaCita;
 				   %>
 
 				   <% 
 				  String fechaCita = BusquedaData.getFechaCita();
 				  if (fechaCita == null) fechaCita = "";
-				  else fechaCita = ". " + fechaCita;				  
+				  else fechaCita = "." + fechaCita;				  
 				   %>
 
 				   <% 

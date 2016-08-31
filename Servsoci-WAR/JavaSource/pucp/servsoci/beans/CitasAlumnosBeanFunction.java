@@ -46,7 +46,7 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 			
 			PucpListaVector comboCiclo = new PucpListaVector();
 			comboCiclo.setCon(this.getCon()); /* Conexion */			
-			comboCiclo.poblar("SELECT DISTINCT A.CICLOANO||'-'||A.CICLO, A.CICLOANO||'-'||A.CICLO FROM SERVSOCI.CICLOSERVSOCI A ORDER BY 1 DESC");			
+			comboCiclo.poblar("SELECT DISTINCT A.CICLOANO||'-'||A.CICLO, A.CICLOANO||'-'||A.CICLO FROM SERVSOCI.CICLOSERVSOCI A WHERE A.INDICAACTIVO = '1' ORDER BY 1 DESC");			
 			return comboCiclo;
 		}catch (Exception exc) {
 			throw exc;
@@ -162,7 +162,7 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 	        			
 	        		}
 	        		
-	        		if (indice == null)
+	        		if (indice == null || indice.trim() == null || indice == " " || indice.trim() == " ")
 	        			break;
 	        		
 	        		if (i==5){	        				        			
@@ -183,7 +183,7 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 	        			*/
 	        			
 	        			insertar = this.insertarCita(sAnio, sCiclo, sTramite, dia, hora, codigo, nombre, lugar); 	        			        		
-	        			
+	        				        	
 	        			break;
 	        			
 	        		}	        		
@@ -191,15 +191,16 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 		        		
 	        	}	        	
 	        	
-	        	if (indice == null)
-	        		break;
+	        	if (indice == null || indice.trim() == null || indice == " " || indice.trim() == " ")
+        			break;
 	        	    
 	            
 	        }
 	        
         } catch (Exception e) {
 
-        	throw new PucpException(e.getMessage());
+        	throw new PucpException(" Verifique que los datos ingresados del archivo excel" +
+        			" en el indice ," + indice + ",");
 		} 
         
 		return (r-3);      
@@ -315,29 +316,6 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 		}
 	}
 
-	/* 11/08/2016 */
-
-	public boolean activarDJF(HttpServletRequest request) throws Exception {		
-		
-		try{
-			
-			String sAnio = request.getParameter("anio");
-			String sCiclo = request.getParameter("ciclo");
-			String sTramite = request.getParameter("tramite");  
-			
-			/* Obtenemos el tipo grupo apartir del tramite */
-			
-			String tipoGrupo = obtenerTipoGrupo(sTramite);
-			
-			return true;
-			   			
-		} catch (Exception e) {
-			throw e;
-		}
-	}
-
-
-
 	public String obtenerTipoGrupo(String tramite) throws Exception {
 		
 		PreparedStatement pstmt = null;
@@ -365,8 +343,7 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
     	    else{
     	    	tipogrupo = rset.getString(1);
     	    }      		
-    		
-    		
+    		    		
 			return tipogrupo;
 			   			
 		} catch (Exception e) {
@@ -403,7 +380,7 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
     		
 
     	    if (!rset.next() ){
-    	        throw new PucpException("Error en la lectura de la descripcion de tramite: " + tramite) ;
+    	        throw new PucpException("No se encontro la descripcion del tramite seleccionado (" + tramite + ")") ;
     	    }
     	    else{
     	    	descripcion = rset.getString(1);
@@ -689,7 +666,7 @@ public class CitasAlumnosBeanFunction extends PucpBeanFunction {
 			
 		} catch (Exception exc) {
 			con.rollback();
-			throw exc;
+			throw new PucpException("Error al consultar los alumnos del ciclo " + v_anio + "-" + v_anio + " del tramite " + v_tramite);
 		} finally {
 			if (rset!= null) rset.close();
 			if (pstmt!= null) pstmt.close();				 	
@@ -721,11 +698,6 @@ public void limpiarCitas(String anio, String ciclo, String tramite) throws PucpE
 			try {if(pstmt!=null) pstmt.close();} catch(Exception er){}
 		}				
 		
-	}
-	
-
-
-	
-	
+	}	
 	
 }
